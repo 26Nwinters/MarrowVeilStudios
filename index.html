@@ -13,6 +13,7 @@
   <meta property="og:type" content="website">
   <meta property="og:image" content="https://marrowveilstudios.com/preview.jpg">
   <link rel="canonical" href="https://marrowveilstudios.com">
+  <link rel="icon" type="image/png" href="./favicon_blogo.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -1298,7 +1299,7 @@
         <div class="featured-grid">
           <div class="featured-img-wrap reveal">
             <!-- REPLACE: ./images/hourglass-cover.jpg -->
-            <img src="https://via.placeholder.com/400x600/1a1a2e/d4af37?text=Hourglass+Missing+Time" alt="Hourglass: Missing Time — Key Art" />
+            <img src="./Nyli_Coverart_H.png" alt="Hourglass: Missing Time — Key Art" />
             <div class="featured-img-overlay"></div>
             <div class="featured-platform">PC</div>
           </div>
@@ -1316,7 +1317,8 @@
               <span class="game-tag">Mystery</span>
             </div>
             <div class="reveal">
-              <p class="game-desc">A psychological horror experience set within the M.A.T.C.H. system, where fragmented memories and controlled simulations blur the line between reality and design.</p>
+              <p class="game-desc">A narrative-driven psychological horror experience following Boa as she searches for answers behind her sister's disappearance.</p>
+              <p class="game-desc">Abandoned locations, corrupted systems, and fragmented memories blur the line between what's real and what was left behind.</p>
               <p class="game-desc">Every room holds a fragment. Every fragment reveals a truth you may not be ready to face.</p>
             </div>
             <div class="game-features reveal">
@@ -1686,7 +1688,7 @@
       <div class="press-contact-note reveal">
         For review copies, interviews, and press inquiries, contact us directly at
         <!-- EDIT: replace with your actual email -->
-        <a href="mailto:press@marrowveil.com">press@marrowveil.com</a>
+        <a href="/cdn-cgi/l/email-protection#a0d0d2c5d3d3e0cdc1d2d2cfd7d6c5c9cc8ec3cfcd"><span class="__cf_email__" data-cfemail="334341564040735e5241415c4445565a5f1d505c5e">[email&#160;protected]</span></a>
         or use the <button style="background:none;border:none;padding:0;color:var(--gold);cursor:pointer;font:inherit;font-size:inherit;" onclick="showPage('contact')">contact page</button>.
         We respond to all press inquiries personally.
       </div>
@@ -1717,7 +1719,7 @@
           <div class="contact-email-block">
             <span class="contact-email-label">Email</span>
             <!-- EDIT: replace with your actual email -->
-            <a href="mailto:hello@marrowveil.com" class="contact-email-link">hello@marrowveil.com</a>
+            <a href="/cdn-cgi/l/email-protection#5a323f3636351a373b2828352d2c3f333674393537" class="contact-email-link"><span class="__cf_email__" data-cfemail="68000d0404072805091a1a071f1e0d0104460b0705">[email&#160;protected]</span></a>
           </div>
 
           <div>
@@ -1815,7 +1817,7 @@
   <!-- ============================================================
        JAVASCRIPT
   ============================================================ -->
-  <script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     // ── Page switching ──────────────────────────────────────────
     function showPage(id) {
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -1873,21 +1875,3 @@
           if (entry.isIntersecting) {
             entry.target.classList.add('revealed');
             revealObserver.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
-
-      document.querySelectorAll('.page.active .reveal').forEach(el => {
-        revealObserver.observe(el);
-      });
-    }
-    initReveals();
-
-    function toggleGame(id) {
-      const card = document.getElementById(id);
-      card.classList.toggle('open');
-    }
-  </script>
-
-</body>
-</html>
