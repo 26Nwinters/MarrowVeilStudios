@@ -1126,7 +1126,7 @@
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
-    .blog-card.placeholder { opacity: 0.45; cursor: default; }
+    .blog-card.placeholder { opacity: 0.45; cursor: default; display: none; }
     .blog-card.placeholder:hover { background: var(--bg); }
     .blog-card.placeholder:hover .blog-card-title { color: var(--cream); }
     .placeholder-badge {
@@ -1825,10 +1825,7 @@
 
       <div class="blog-featured reveal">
         <div class="blog-featured-thumb">
-          <div class="thumb-placeholder">
-            <span class="thumb-symbol">◆</span>
-            <span class="thumb-placeholder-label">No image yet</span>
-          </div>
+          <img src="Featured_Image_01" alt="Post thumbnail" style="width:100%;height:100%;object-fit:cover;">
         </div>
         <div class="blog-featured-body">
           <div>
@@ -1836,12 +1833,11 @@
               <span class="blog-tag">Devlog</span>
               <span class="blog-featured-label">Featured</span>
             </div>
-            <h2 class="blog-card-title" style="margin-bottom:1rem;">YOUR FIRST POST TITLE GOES HERE</h2>
-            <p class="blog-card-excerpt">This is where your first devlog entry will live. Share a development update, a design breakdown, or a behind-the-scenes look at a mechanic.</p>
+            <h2 class="blog-card-title" style="margin-bottom:1rem;">Behind the HourGlass Ep 1</h2>
+            <p class="blog-card-excerpt">Episode 1 explores how HourGlass began as a small idea that refused to fade and slowly evolved into something real. It touches on the early struggles, missteps, and turning points that shaped the project behind the scenes. This is the beginning of the journey—before everything started to fall into place.</p>
           </div>
           <div class="blog-card-footer">
             <span class="blog-card-date">Coming Soon</span>
-            <span class="blog-card-read">Read More</span>
           </div>
         </div>
       </div>
