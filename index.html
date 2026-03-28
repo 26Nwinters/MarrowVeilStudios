@@ -905,49 +905,126 @@
       color: var(--cream);
     }
 
-    /* ============================================================
+  <!-- ============================================================
        BLOG PAGE
-    ============================================================ */
-    .blog-coming {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      min-height: 60vh;
-      gap: 2rem;
-    }
-    .blog-coming-symbol {
-      font-family: var(--font-display);
-      font-size: 6rem;
-      color: var(--gold-dim);
-      letter-spacing: 0.2em;
-      animation: pulse 3s ease-in-out infinite;
-    }
-    .blog-coming-title {
-      font-family: var(--font-display);
-      font-size: clamp(2rem, 5vw, 3.5rem);
-      letter-spacing: 0.08em;
-      color: var(--cream);
-    }
-    .blog-coming-desc {
-      font-family: var(--font-body);
-      font-size: 1rem;
-      color: var(--muted);
-      max-width: 440px;
-      line-height: 1.7;
-    }
-    .blog-coming-hint {
-      font-family: var(--font-body);
-      font-size: 0.75rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--dim);
-      padding: 0.5rem 1.5rem;
-      border: 1px solid var(--border);
-    }
-
-    /* ============================================================
+  ============================================================ -->
+  <div id="page-blog" class="page">
+    <div class="page-hero">
+      <div class="container">
+        <div class="page-hero-eyebrow reveal">Development Log</div>
+        <h1 class="page-hero-title reveal">THE<br>DEVLOG</h1>
+        <p class="page-hero-desc reveal">Behind-the-scenes updates, design insights, and dispatches from inside the development of the HourGlass universe.</p>
+      </div>
+    </div>
+    <div class="container" style="padding-top:4rem;padding-bottom:6rem;">
+ 
+      <!-- Filter bar -->
+      <div class="blog-filters reveal">
+        <button class="blog-filter-btn active">All</button>
+        <div class="blog-filter-sep"></div>
+        <button class="blog-filter-btn">Devlog</button>
+        <button class="blog-filter-btn">Design</button>
+        <button class="blog-filter-btn">Lore</button>
+        <button class="blog-filter-btn">Update</button>
+      </div>
+ 
+      <!-- Meta row -->
+      <div class="blog-meta-row reveal">
+        <span class="blog-count"><span>0</span> Posts — More coming soon</span>
+      </div>
+ 
+      <!-- Featured post placeholder -->
+      <div class="blog-featured reveal">
+        <div class="blog-featured-thumb">
+          <div class="thumb-placeholder">
+            <span class="thumb-symbol">◆</span>
+            <span class="thumb-placeholder-label">No image yet</span>
+          </div>
+        </div>
+        <div class="blog-featured-body">
+          <div>
+            <div class="blog-featured-tag" style="margin-bottom:1.25rem;">
+              <span class="blog-tag">Devlog</span>
+              <span class="blog-featured-label">Featured</span>
+            </div>
+            <h2 class="blog-card-title" style="margin-bottom:1rem;">YOUR FIRST POST TITLE GOES HERE</h2>
+            <p class="blog-card-excerpt">This is where your first devlog entry will live. Share a development update, a design breakdown, or a behind-the-scenes look at a mechanic.</p>
+          </div>
+          <div class="blog-card-footer">
+            <span class="blog-card-date">Coming Soon</span>
+            <span class="blog-card-read">Read More</span>
+          </div>
+        </div>
+      </div>
+ 
+      <!-- Post grid -->
+      <div class="blog-grid">
+ 
+        <div class="blog-card placeholder reveal">
+          <div class="blog-card-thumb">
+            <div class="thumb-placeholder">
+              <span class="thumb-symbol">◈</span>
+            </div>
+            <span class="placeholder-badge">Upcoming</span>
+          </div>
+          <div class="blog-card-body">
+            <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
+              <span class="blog-tag-ghost">Devlog</span>
+            </div>
+            <h3 class="blog-card-title">POST TITLE</h3>
+            <p class="blog-card-excerpt">A short excerpt summarizing what this post covers. Keep it to two or three sentences.</p>
+            <div class="blog-card-footer">
+              <span class="blog-card-date">— — —</span>
+              <span class="blog-card-read">Read</span>
+            </div>
+          </div>
+        </div>
+ 
+        <div class="blog-card placeholder reveal">
+          <div class="blog-card-thumb">
+            <div class="thumb-placeholder">
+              <span class="thumb-symbol">◈</span>
+            </div>
+            <span class="placeholder-badge">Upcoming</span>
+          </div>
+          <div class="blog-card-body">
+            <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
+              <span class="blog-tag-ghost">Design</span>
+            </div>
+            <h3 class="blog-card-title">POST TITLE</h3>
+            <p class="blog-card-excerpt">A short excerpt summarizing what this post covers. Keep it to two or three sentences.</p>
+            <div class="blog-card-footer">
+              <span class="blog-card-date">— — —</span>
+              <span class="blog-card-read">Read</span>
+            </div>
+          </div>
+        </div>
+ 
+        <div class="blog-card placeholder reveal">
+          <div class="blog-card-thumb">
+            <div class="thumb-placeholder">
+              <span class="thumb-symbol">◈</span>
+            </div>
+            <span class="placeholder-badge">Upcoming</span>
+          </div>
+          <div class="blog-card-body">
+            <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
+              <span class="blog-tag-ghost">Lore</span>
+            </div>
+            <h3 class="blog-card-title">POST TITLE</h3>
+            <p class="blog-card-excerpt">A short excerpt summarizing what this post covers. Keep it to two or three sentences.</p>
+            <div class="blog-card-footer">
+              <span class="blog-card-date">— — —</span>
+              <span class="blog-card-read">Read</span>
+            </div>
+          </div>
+        </div>
+ 
+      </div><!-- /blog-grid -->
+ 
+    </div>
+  </div><!-- /blog -->
+     /* ============================================================
        PRESS PAGE
     ============================================================ */
     .press-intro {
