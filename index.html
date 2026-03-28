@@ -905,125 +905,251 @@
       color: var(--cream);
     }
 
-  <!-- ============================================================
+  /* ============================================================
        BLOG PAGE
-  ============================================================ -->
-  <div id="page-blog" class="page">
-    <div class="page-hero">
-      <div class="container">
-        <div class="page-hero-eyebrow reveal">Development Log</div>
-        <h1 class="page-hero-title reveal">THE<br>DEVLOG</h1>
-        <p class="page-hero-desc reveal">Behind-the-scenes updates, design insights, and dispatches from inside the development of the HourGlass universe.</p>
-      </div>
-    </div>
-    <div class="container" style="padding-top:4rem;padding-bottom:6rem;">
- 
-      <!-- Filter bar -->
-      <div class="blog-filters reveal">
-        <button class="blog-filter-btn active">All</button>
-        <div class="blog-filter-sep"></div>
-        <button class="blog-filter-btn">Devlog</button>
-        <button class="blog-filter-btn">Design</button>
-        <button class="blog-filter-btn">Lore</button>
-        <button class="blog-filter-btn">Update</button>
-      </div>
- 
-      <!-- Meta row -->
-      <div class="blog-meta-row reveal">
-        <span class="blog-count"><span>0</span> Posts — More coming soon</span>
-      </div>
- 
-      <!-- Featured post placeholder -->
-      <div class="blog-featured reveal">
-        <div class="blog-featured-thumb">
-          <div class="thumb-placeholder">
-            <span class="thumb-symbol">◆</span>
-            <span class="thumb-placeholder-label">No image yet</span>
-          </div>
-        </div>
-        <div class="blog-featured-body">
-          <div>
-            <div class="blog-featured-tag" style="margin-bottom:1.25rem;">
-              <span class="blog-tag">Devlog</span>
-              <span class="blog-featured-label">Featured</span>
-            </div>
-            <h2 class="blog-card-title" style="margin-bottom:1rem;">YOUR FIRST POST TITLE GOES HERE</h2>
-            <p class="blog-card-excerpt">This is where your first devlog entry will live. Share a development update, a design breakdown, or a behind-the-scenes look at a mechanic.</p>
-          </div>
-          <div class="blog-card-footer">
-            <span class="blog-card-date">Coming Soon</span>
-            <span class="blog-card-read">Read More</span>
-          </div>
-        </div>
-      </div>
- 
-      <!-- Post grid -->
-      <div class="blog-grid">
- 
-        <div class="blog-card placeholder reveal">
-          <div class="blog-card-thumb">
-            <div class="thumb-placeholder">
-              <span class="thumb-symbol">◈</span>
-            </div>
-            <span class="placeholder-badge">Upcoming</span>
-          </div>
-          <div class="blog-card-body">
-            <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
-              <span class="blog-tag-ghost">Devlog</span>
-            </div>
-            <h3 class="blog-card-title">POST TITLE</h3>
-            <p class="blog-card-excerpt">A short excerpt summarizing what this post covers. Keep it to two or three sentences.</p>
-            <div class="blog-card-footer">
-              <span class="blog-card-date">— — —</span>
-              <span class="blog-card-read">Read</span>
-            </div>
-          </div>
-        </div>
- 
-        <div class="blog-card placeholder reveal">
-          <div class="blog-card-thumb">
-            <div class="thumb-placeholder">
-              <span class="thumb-symbol">◈</span>
-            </div>
-            <span class="placeholder-badge">Upcoming</span>
-          </div>
-          <div class="blog-card-body">
-            <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
-              <span class="blog-tag-ghost">Design</span>
-            </div>
-            <h3 class="blog-card-title">POST TITLE</h3>
-            <p class="blog-card-excerpt">A short excerpt summarizing what this post covers. Keep it to two or three sentences.</p>
-            <div class="blog-card-footer">
-              <span class="blog-card-date">— — —</span>
-              <span class="blog-card-read">Read</span>
-            </div>
-          </div>
-        </div>
- 
-        <div class="blog-card placeholder reveal">
-          <div class="blog-card-thumb">
-            <div class="thumb-placeholder">
-              <span class="thumb-symbol">◈</span>
-            </div>
-            <span class="placeholder-badge">Upcoming</span>
-          </div>
-          <div class="blog-card-body">
-            <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
-              <span class="blog-tag-ghost">Lore</span>
-            </div>
-            <h3 class="blog-card-title">POST TITLE</h3>
-            <p class="blog-card-excerpt">A short excerpt summarizing what this post covers. Keep it to two or three sentences.</p>
-            <div class="blog-card-footer">
-              <span class="blog-card-date">— — —</span>
-              <span class="blog-card-read">Read</span>
-            </div>
-          </div>
-        </div>
- 
-      </div><!-- /blog-grid -->
- 
-    </div>
-  </div><!-- /blog -->
+    ============================================================ */
+    /* Filter bar */
+    .blog-filters {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+    }
+    .blog-filter-btn {
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--dim);
+      background: none;
+      border: 1px solid var(--border);
+      padding: 0.4rem 1rem;
+      cursor: pointer;
+      transition: color 0.25s, border-color 0.25s;
+    }
+    .blog-filter-btn:hover,
+    .blog-filter-btn.active {
+      color: var(--gold);
+      border-color: var(--gold-dim);
+    }
+    .blog-filter-sep {
+      width: 1px;
+      height: 1rem;
+      background: var(--border);
+      margin: 0 0.25rem;
+    }
+    /* Meta row */
+    .blog-meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .blog-count {
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+    .blog-count span { color: var(--gold); }
+    /* Featured post */
+    .blog-featured {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border: 1px solid var(--border);
+      margin-bottom: 2rem;
+      background: var(--bg-card);
+      transition: border-color 0.3s;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    .blog-featured:hover { border-color: var(--gold-dim); }
+    .blog-featured:hover .blog-card-title { color: var(--gold); }
+    .blog-featured-thumb {
+      aspect-ratio: 16/10;
+      background: #0d0d1a;
+      position: relative;
+      overflow: hidden;
+    }
+    .thumb-placeholder {
+      width: 100%;
+      height: 100%;
+      background:
+        radial-gradient(ellipse at 30% 50%, rgba(180,140,60,0.07) 0%, transparent 60%),
+        radial-gradient(ellipse at 70% 50%, rgba(114,194,255,0.04) 0%, transparent 60%),
+        #0a0a14;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      transition: opacity 0.3s;
+    }
+    .blog-card:hover .thumb-placeholder { opacity: 0.8; }
+    .thumb-symbol {
+      font-family: var(--font-display);
+      font-size: 5rem;
+      color: var(--gold-dim);
+      letter-spacing: 0.2em;
+      user-select: none;
+    }
+    .thumb-placeholder-label {
+      position: absolute;
+      bottom: 1rem;
+      left: 1rem;
+      font-family: var(--font-body);
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--dim);
+      border: 1px solid var(--border);
+      padding: 0.2rem 0.6rem;
+      background: rgba(8,8,16,0.6);
+    }
+    .blog-featured-body {
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+    .blog-featured-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .blog-tag {
+      font-family: var(--font-body);
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid var(--gold-dim);
+      padding: 0.2rem 0.6rem;
+    }
+    .blog-tag-ghost {
+      font-family: var(--font-body);
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--dim);
+      border: 1px solid var(--border);
+      padding: 0.2rem 0.6rem;
+    }
+    .blog-featured-label {
+      font-family: var(--font-body);
+      font-size: 0.62rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+    .blog-card-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.4rem, 3vw, 2.2rem);
+      letter-spacing: 0.04em;
+      color: var(--cream);
+      line-height: 1.05;
+      transition: color 0.3s;
+    }
+    .blog-card-excerpt {
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+    .blog-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border);
+    }
+    .blog-card-date {
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      color: var(--dim);
+      text-transform: uppercase;
+    }
+    .blog-card-read {
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      color: var(--gold);
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .blog-card-read::after { content: '→'; transition: transform 0.25s; }
+    .blog-featured:hover .blog-card-read::after,
+    .blog-card:hover .blog-card-read::after { transform: translateX(4px); }
+    /* Post grid */
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+    .blog-card {
+      background: var(--bg);
+      cursor: pointer;
+      transition: background 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .blog-card:hover { background: rgba(255,255,255,0.02); }
+    .blog-card:hover .blog-card-title { color: var(--gold); }
+    .blog-card-thumb {
+      aspect-ratio: 16/9;
+      position: relative;
+      overflow: hidden;
+    }
+    .blog-card-thumb .thumb-symbol { font-size: 3rem; }
+    .blog-card-body {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .blog-card .blog-card-title { font-size: clamp(1rem, 2vw, 1.3rem); }
+    .blog-card .blog-card-excerpt {
+      font-size: 0.82rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .blog-card.placeholder { opacity: 0.45; cursor: default; }
+    .blog-card.placeholder:hover { background: var(--bg); }
+    .blog-card.placeholder:hover .blog-card-title { color: var(--cream); }
+    .placeholder-badge {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      font-family: var(--font-body);
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--dim);
+      border: 1px solid var(--border);
+      padding: 0.2rem 0.5rem;
+      background: rgba(8,8,16,0.8);
+    }
+    /* Blog responsive */
+    @media (max-width: 900px) {
+      .blog-featured { grid-template-columns: 1fr; }
+      .blog-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 580px) {
+      .blog-grid { grid-template-columns: 1fr; }
+    }
      /* ============================================================
        PRESS PAGE
     ============================================================ */
