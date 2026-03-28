@@ -62,7 +62,7 @@ async function loadIncludes() {
 
   if (navHolder) {
     try {
-      const res = await fetch('https://marrowveilstudios.com/_includes/nav.html');
+      const res = await fetch('includes/nav.html');
       const html = await res.text();
       navHolder.outerHTML = html;
       // Re-run active link detection after nav is loaded
@@ -81,7 +81,7 @@ async function loadIncludes() {
 
   if (footerHolder) {
     try {
-      const res = await fetch('https://marrowveilstudios.com/_includes/footer.html');
+      const res = await fetch('includes/footer.html');
       const html = await res.text();
       footerHolder.outerHTML = html;
     } catch(e) { console.warn('Footer include failed', e); }
