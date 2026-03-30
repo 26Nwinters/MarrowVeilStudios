@@ -137,123 +137,130 @@ nav{
 }
 .gi:hover .gi-ov{opacity:1}
 
-/* FOOTER */
-footer{
-  padding:40px;
-  text-align:center;
-  background:black;
-  color:white;
-}
-</style>
-</head>
-
-<body>
-
-<div id="cur"></div>
-<div id="cring"></div>
-
-<!-- HERO -->
-<section id="hero">
-  <h1 class="hero-name">Erica Potts</h1>
-</section>
-
-<!-- ABOUT -->
-<section id="about">
-  <div class="wrap">
-    <div class="about-grid">
-
-      <div class="portrait-wrap">
-        <img src="https://via.placeholder.com/400">
-      </div>
-
-      <div>
-        <p>
-          This is your about section. Replace this with your actual bio.
-        </p>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- GALLERY -->
-<section id="gallery">
-  <div class="wrap">
-
-    <div class="tabs">
-      <button class="tab-btn active">Art</button>
-      <button class="tab-btn">Design</button>
-    </div>
-
-    <div class="tab-panel active">
-      <div class="ggrid g3">
-
-        <div class="gi">
-          <img src="https://via.placeholder.com/400">
-          <div class="gi-ov">Art</div>
-        </div>
-
-        <div class="gi">
-          <img src="https://via.placeholder.com/400">
-          <div class="gi-ov">Art</div>
-        </div>
-
-        <div class="gi">
-          <img src="https://via.placeholder.com/400">
-          <div class="gi-ov">Art</div>
-        </div>
-
-      </div>
-    </div>
-
-    <div class="tab-panel">
-      <div class="ggrid g2">
-
-        <div class="gi">
-          <img src="https://via.placeholder.com/600x400">
-          <div class="gi-ov">Design</div>
-        </div>
-
-        <div class="gi">
-          <img src="https://via.placeholder.com/600x400">
-          <div class="gi-ov">Design</div>
-        </div>
-
-      </div>
-    </div>
-
-  </div>
-</section>
-
+<!-- ── FOOTER ── -->
 <footer>
-  © 2026 Erica Potts
+  <div class="fl-left">Erica Potts — Portfolio</div>
+  <div class="fl-right">© 2026</div>
 </footer>
 
 <script>
-/* CURSOR */
-const cur = document.getElementById("cur");
-const ring = document.getElementById("cring");
+/* ── CURSOR ── */
+const C = document.getElementById('cur');
+const R = document.getElementById('cring');
 
-document.addEventListener("mousemove", e=>{
-  cur.style.left=e.clientX+"px";
-  cur.style.top=e.clientY+"px";
-  ring.style.left=e.clientX+"px";
-  ring.style.top=e.clientY+"px";
-});
+if (C && R) {
+  let mx = window.innerWidth / 2;
+  let my = window.innerHeight / 2;
+  let rx = mx;
+  let ry = my;
 
-/* TABS */
-const tabs=document.querySelectorAll(".tab-btn");
-const panels=document.querySelectorAll(".tab-panel");
-
-tabs.forEach((tab,i)=>{
-  tab.addEventListener("click",()=>{
-    tabs.forEach(t=>t.classList.remove("active"));
-    panels.forEach(p=>p.classList.remove("active"));
-
-    tab.classList.add("active");
-    panels[i].classList.add("active");
+  document.addEventListener('mousemove', (e) => {
+    mx = e.clientX;
+    my = e.clientY;
   });
-});
+
+  function cursorLoop() {
+    C.style.left = mx + 'px';
+    C.style.top = my + 'px';
+
+    rx += (mx - rx) * 0.14;
+    ry += (my - ry) * 0.14;
+
+    R.style.left = rx + 'px';
+    R.style.top = ry + 'px';
+
+    requestAnimationFrame(cursorLoop);
+  }
+  cursorLoop();
+
+  document.querySelectorAll('a, button, .gi').forEach((el) => {
+    el.addEventListener('mouseenter', () => {
+      C.style.width = '20px';
+      C.style.height = '20px';
+    });
+    el.addEventListener('mouseleave', () => {
+      C.style.width = '10px';
+      C.style.height = '10px';
+    });
+  });
+}
+
+/* ── TABS ── */
+const tabs = document.querySelectorAll('.tab-btn');
+const panels = document.querySelectorAll('.tab-panel');
+
+if (tabs.length && panels.length) {
+  tabs.forEach((tab, i) => {
+    tab.addEventListener('click', () => {
+      tabs.forEach((t) => t.classList.remove('active'));
+      panels.forEach((p) => p.classList.remove('active'));
+
+      tab.classList.add('active');
+      if (panels[i]) panels[i].classList.add('active');
+    });
+  });
+
+  tabs[0].classList.add('active');
+  panels[0].classList.add('active');
+}
+
+/* ── SCROLL REVEAL ── */
+const revealItems = document.querySelectorAll('.rev');
+
+if (revealItems.length) {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+      }
+    });
+  }, {
+    threshold: 0.07,
+    rootMargin: '0px 0px -44px 0px'
+  });
+
+  revealItems.forEach((el) => observer.observe(el));
+}
+
+/* ── AUDIO PLAYER (SIMULATED) ── */
+function tp(btn) {
+  const p = btn.querySelector('svg path');
+  const card = btn.closest('.vcard');
+  const bar = card ? card.querySelector('.abar-fill') : null;
+  const t = card ? card.querySelector('.atime') : null;
+
+  if (!p || !bar || !t) return;
+
+  if (btn._on) {
+    btn._on = 0;
+    p.setAttribute('d', 'M0 0 L10 6 L0 12Z');
+    clearInterval(btn._iv);
+    bar.style.width = '0%';
+    t.textContent = '0:00';
+  } else {
+    btn._on = 1;
+    p.setAttribute('d', 'M2 1 L2 11 M8 1 L8 11');
+    let s = 0;
+
+    btn._iv = setInterval(() => {
+      s++;
+      const pct = Math.min(s / 2, 100);
+      bar.style.width = pct + '%';
+
+      const m = Math.floor(s / 120);
+      const sec = Math.floor(s / 2) % 60;
+      t.textContent = m + ':' + String(sec).padStart(2, '0');
+
+      if (pct >= 100) {
+        clearInterval(btn._iv);
+        btn._on = 0;
+        p.setAttribute('d', 'M0 0 L10 6 L0 12Z');
+        bar.style.width = '0%';
+        t.textContent = '0:00';
+      }
+    }, 100);
+  }
+}
 </script>
 
 </body>
