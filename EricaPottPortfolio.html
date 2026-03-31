@@ -39,12 +39,12 @@
     font-weight: 300;
     line-height: 1.7;
     overflow-x: hidden;
-    cursor: none;
+    cursor: auto;
   }
 
   /* ── CURSOR ── */
-  #cur  { position:fixed;width:10px;height:10px;background:var(--leaf);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s;mix-blend-mode:multiply;top:0;left:0; }
-  #cring{ position:fixed;width:34px;height:34px;border:1.5px solid var(--leaf-mid);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .08s linear;opacity:.45;top:0;left:0; }
+  #cur  { display:none; }
+  #cring{ display:none; }
 
   
   /* ── IVY BORDERS (real image, transparent PNG) ── */
@@ -262,7 +262,7 @@
   .ggrid { display: grid; gap: 4px; }
   .ggrid.g3 { grid-template-columns: repeat(3,1fr); }
   .ggrid.g2 { grid-template-columns: repeat(2,1fr); }
-  .gi { aspect-ratio: 1; position: relative; overflow: hidden; cursor: none; background: var(--leaf-mid); }
+  .gi { aspect-ratio: 1; position: relative; overflow: hidden; background: var(--leaf-mid); }
   .ggrid.g2 .gi { aspect-ratio: 4/3; }
   .gi img { width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s var(--ease); }
   .gi:hover img { transform: scale(1.07); }
