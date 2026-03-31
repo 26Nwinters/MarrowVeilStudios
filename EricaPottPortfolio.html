@@ -46,55 +46,39 @@
   #cur  { position:fixed;width:10px;height:10px;background:var(--leaf);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s;mix-blend-mode:multiply;top:0;left:0; }
   #cring{ position:fixed;width:34px;height:34px;border:1.5px solid var(--leaf-mid);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .08s linear;opacity:.45;top:0;left:0; }
 
-  /* ── IVY BORDER STRIPS ── */
-  .vine {
+  
+  /* ── IVY BORDERS (real image, transparent PNG) ── */
+  .ivy-top, .ivy-bottom {
     position: fixed;
-    top: 0;
-    width: 110px;
-    height: 100vh;
-    pointer-events: none;
-    z-index: 50;
-    overflow: hidden;
-  }
-  .vine.l { left: 0; }
-  .vine.r { right: 0; transform: scaleX(-1); }
-
-  /* Two stacked images tile the full height */
-  .vine img {
-    display: block;
+    left: 0; right: 0;
     width: 100%;
-    height: 50vh;
-    object-fit: cover;
-    object-position: right center;
-    mix-blend-mode: multiply;
-    opacity: 0.82;
-    filter: saturate(1.2);
-  }
-  /* fade out into page at the inner (right) edge */
-  .vine::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to right, transparent 55%, var(--cream) 100%);
     pointer-events: none;
-    z-index: 2;
+    z-index: 200;
+    height: 240px;
   }
-  /* Override right vine fade direction since it's scaleX(-1) */
-  .vine.r::after {
-    background: linear-gradient(to right, transparent 55%, var(--cream) 100%);
+  .ivy-top { top: 0; }
+  .ivy-bottom { bottom: 0; transform: scaleY(-1); }
+
+  .ivy-top img, .ivy-bottom img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+    opacity: 0.97;
   }
 
   /* ── NAV ── */
   nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    position: fixed; top: 0; left: 0; right: 0; z-index: 300;
     display: flex; align-items: center; justify-content: space-between;
-    padding: 22px 140px;
-    background: linear-gradient(to bottom, rgba(250,246,238,.96) 55%, transparent);
+    padding: 22px 48px;
+    background: linear-gradient(to bottom, rgba(10,18,8,0.82) 0%, rgba(10,18,8,0.60) 70%, transparent 100%);
   }
-  .nav-brand { font-family:var(--font-display);font-size:13px;letter-spacing:.3em;text-transform:uppercase;color:var(--bark);text-decoration:none;opacity:.85;transition:opacity .3s; }
+  .nav-brand { font-family:var(--font-display);font-size:13px;letter-spacing:.3em;text-transform:uppercase;color:#e8dfc8;text-decoration:none;opacity:.9;transition:opacity .3s; }
   .nav-brand:hover { opacity:1; }
   .nav-links { display:flex;gap:32px;list-style:none; }
-  .nav-links a { font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--moss-dark);text-decoration:none;opacity:.5;transition:opacity .3s; }
+  .nav-links a { font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#c8d8b8;text-decoration:none;opacity:.75;transition:opacity .3s; }
   .nav-links a:hover { opacity:1; }
   .nav-back { font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--rose);text-decoration:none;opacity:.75;transition:opacity .3s;display:flex;align-items:center;gap:6px; }
   .nav-back::before { content:'←'; }
@@ -108,8 +92,7 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    overflow: hidden;
-    padding: 120px 140px 80px;
+    padding: 180px 60px 80px;
   }
 
   .hero-img {
@@ -147,12 +130,25 @@
     text-align: center; max-width: 680px;
   }
 
+
+  .hero-text-backdrop {
+    background: rgba(0, 0, 0, 0.48);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 6px;
+    padding: 28px 44px 24px;
+    margin-bottom: 32px;
+    border: 1px solid rgba(255,255,255,0.10);
+  }
+  .hero-text-backdrop .hero-name { margin-bottom: 12px; }
+  .hero-text-backdrop .hero-desc { margin-bottom: 0; }
+
   @keyframes fadeUp { from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)} }
 
   .hero-eyebrow {
     font-size: 11px; letter-spacing: .38em; text-transform: uppercase;
-    color: var(--sunlight); margin-bottom: 20px; display: block;
-    text-shadow: 0 1px 12px rgba(0,0,0,.55);
+    color: #ffe87a; margin-bottom: 16px; display: block; font-weight: 500;
+    text-shadow: 0 0 10px rgba(0,0,0,1), 0 1px 4px rgba(0,0,0,1);
     opacity: 0; animation: fadeUp .9s ease .25s forwards;
   }
   .hero-name {
@@ -199,7 +195,7 @@
 
   /* ── SHARED SECTION ── */
   section { position: relative; z-index: 1; }
-  .wrap { max-width: 1080px; margin: 0 auto; padding: 100px 140px; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 100px 60px; }
   .s-label { font-size: 10px; letter-spacing: .36em; text-transform: uppercase; color: var(--leaf-mid); margin-bottom: 16px; display: block; }
   .s-title { font-family: var(--font-display); font-size: clamp(34px,4.8vw,56px); font-weight: 300; line-height: 1.05; color: var(--charcoal); margin-bottom: 50px; }
   .s-title em { font-style: italic; color: var(--leaf); }
@@ -326,7 +322,7 @@
   .fsub:hover { background:rgba(90,180,50,.26);border-color:var(--leaf-pale);color:var(--cream); }
 
   /* ── FOOTER ── */
-  footer { background:var(--ink);padding:38px 140px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(90,180,50,.07); }
+  footer { background:var(--ink);padding:38px 60px 260px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(90,180,50,.07);flex-wrap:wrap;gap:12px; }
   .fl-left { font-family:var(--font-display);font-size:13px;font-style:italic;color:rgba(205,230,185,.32); }
   .fl-right { font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(205,230,185,.22); }
   .fl-studio { font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--rose-soft);opacity:.58;text-decoration:none;transition:opacity .3s; }
@@ -359,24 +355,10 @@
 <div id="cur"></div>
 <div id="cring"></div>
 
-<!-- ══ LEFT VINE STRIP ══ -->
-<!--
-  Photo credit: Ivy climbing wall — free under Unsplash License
-  Will load when hosted. picsum.photos used as sandbox-compatible stand-in.
-  For production swap src to:
-  https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=220&q=80&fit=crop&crop=left
--->
-<div class="vine l" aria-hidden="true">
-  <img src="https://picsum.photos/seed/ivy1/220/600?grayscale" style="filter:sepia(0.5) saturate(2) hue-rotate(60deg) brightness(0.85);" alt="">
-  <img src="https://picsum.photos/seed/ivy2/220/600?grayscale" style="filter:sepia(0.5) saturate(2) hue-rotate(65deg) brightness(0.8);" alt="">
+<!-- ══ TOP IVY BORDER ══ -->
+<div class="ivy-top" aria-hidden="true">
+  <img src="vine-border.png" alt="">
 </div>
-
-<!-- ══ RIGHT VINE STRIP ══ -->
-<div class="vine r" aria-hidden="true">
-  <img src="https://picsum.photos/seed/ivy3/220/600?grayscale" style="filter:sepia(0.5) saturate(2) hue-rotate(60deg) brightness(0.85);" alt="">
-  <img src="https://picsum.photos/seed/ivy4/220/600?grayscale" style="filter:sepia(0.5) saturate(2) hue-rotate(65deg) brightness(0.8);" alt="">
-</div>
-
 <!-- ══ NAV ══ -->
 <nav>
   <a href="#" class="nav-brand">Erica Potts</a>
@@ -396,16 +378,17 @@
 -->
 <section id="hero">
   <img class="hero-img"
-    src="https://picsum.photos/seed/forest7/1800/1000"
-    style="filter:saturate(1.3) hue-rotate(20deg) brightness(0.92);"
+    src="hero-forest.jpg"
     alt="Sunlit forest with light filtering through tall trees"
     loading="eager">
   <div class="hero-shade"></div>
   <div class="hero-glow"></div>
   <div class="hero-content">
-    <span class="hero-eyebrow">Illustrator · Designer · Voice Artist</span>
-    <h1 class="hero-name">Erica<br><em>Potts</em></h1>
-    <p class="hero-desc">Where the wild things are drawn.</p>
+    <div class="hero-text-backdrop">
+      <span class="hero-eyebrow">Illustrator · Designer · Voice Artist</span>
+      <h1 class="hero-name">Erica<br><em>Potts</em></h1>
+      <p class="hero-desc">Where the wild things are drawn.</p>
+    </div>
     <a href="#gallery" class="hero-cta">View Work</a>
   </div>
   <div class="scroll-hint">
@@ -414,10 +397,10 @@
   </div>
 </section>
 
-<!-- Wave divider -->
-<div class="wave" style="background:var(--warm-white);">
-  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M0 60 Q180 6 360 36 Q540 60 720 24 Q900 0 1080 34 Q1260 60 1440 16 L1440 60Z" fill="#182810"/>
+<!-- Wave divider: forest deep → warm white -->
+<div style="background:var(--forest-deep);line-height:0;display:block;margin:0;padding:0;">
+  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" style="display:block;width:100%;height:60px;" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 0 Q180 54 360 24 Q540 0 720 36 Q900 60 1080 26 Q1260 0 1440 44 L1440 60 L0 60Z" fill="#f4efe6"/>
   </svg>
 </div>
 
@@ -530,14 +513,14 @@
     style="filter:saturate(1.2) hue-rotate(18deg) brightness(.7);"
     alt=""
     loading="lazy">
-  <div class="contact-inner wrap">
+  <div class="contact-inner wrap" style="padding-bottom:280px;">
     <div class="cgrid">
       <div class="rev">
         <span class="s-label">Contact</span>
         <h2 class="c-intro">Let's make something<br><em>strange and beautiful.</em></h2>
         <p class="c-sub">Open to illustration commissions, character design, voice acting, and collaborative creative work. Part of the <a href="https://marrowveilstudios.com">MarrowVeil Studios</a> team.</p>
         <div class="clinks">
-          <a href="mailto:erica@marrowveilstudios.com" class="clink"><span class="clink-icon"><svg viewBox="0 0 16 12"><path d="M0 0 L8 7 L16 0 M0 0 L0 12 L16 12 L16 0" stroke="#e8a090" stroke-width="1" fill="none"/></svg></span>erica@marrowveilstudios.com</a>
+          <a href="/cdn-cgi/l/email-protection#ed889f848e8cad808c9f9f829a9b8884819e99988984829ec38e8280" class="clink"><span class="clink-icon"><svg viewBox="0 0 16 12"><path d="M0 0 L8 7 L16 0 M0 0 L0 12 L16 12 L16 0" stroke="#e8a090" stroke-width="1" fill="none"/></svg></span><span class="__cf_email__" data-cfemail="fe9b8c979d9fbe939f8c8c9189889b97928d8a8b9a97918dd09d9193">[email&#160;protected]</span></a>
           <a href="https://instagram.com/" class="clink" target="_blank"><span class="clink-icon"><svg viewBox="0 0 16 16"><rect x="1" y="1" width="14" height="14" rx="4" stroke="#e8a090" stroke-width="1" fill="none"/><circle cx="8" cy="8" r="3.5" stroke="#e8a090" stroke-width="1" fill="none"/><circle cx="12" cy="4" r="0.8" fill="#e8a090"/></svg></span>@ericapotts — Instagram</a>
           <a href="https://marrowveilstudios.com" class="clink" target="_blank"><span class="clink-icon"><svg viewBox="0 0 16 16" fill="none"><path d="M8 2 L14 8 L8 14 L2 8Z" stroke="#e8a090" stroke-width="1"/></svg></span>MarrowVeil Studios</a>
         </div>
@@ -560,7 +543,7 @@
   <span class="fl-right">&copy; 2025</span>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // Cursor
 const C=document.getElementById('cur'),R=document.getElementById('cring');
 let mx=0,my=0,rx=0,ry=0;
@@ -597,10 +580,4 @@ function tp(btn){
 
 // Swap Unsplash URLs when not in preview sandbox
 // When deployed to GitHub Pages, replace all picsum.photos src values with:
-// Hero:      https://images.unsplash.com/photo-1448375240586-882707db888b?w=1800&q=85&fit=crop
-// Ivy sides: https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=220&q=80&fit=crop&crop=left
-// Portrait:  Replace with Erica's actual photo file
-// Gallery:   Replace with Erica's actual artwork files
-</script>
-</body>
-</html>
+// Hero:      https://images.unsplash.com/photo-1448375240586-882707db888b
