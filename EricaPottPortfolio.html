@@ -266,6 +266,7 @@
   .ggrid.g2 .gi { aspect-ratio: 4/3; }
   .gi img { width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s var(--ease); }
   .gi:hover img { transform: scale(1.07); }
+  .gi > div { width:100%;height:100%;position:absolute;inset:0; }
   .gi-ov { position:absolute;inset:0;z-index:2;background:rgba(22,42,14,.8);display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;transition:opacity .4s;padding:20px;text-align:center; }
   .gi:hover .gi-ov { opacity:1; }
   .gi-title { font-family:var(--font-display);font-size:20px;font-style:italic;color:var(--sunlight-soft);margin-bottom:6px; }
@@ -416,14 +417,8 @@
             Recommended: 600x800px, portrait orientation.
             Production ivy src: https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=300&q=80&fit=crop&crop=bottom,right
           -->
-          <img class="portrait-photo"
-            src="https://picsum.photos/seed/portrait1/600/800"
-            style="filter:saturate(0.9) brightness(0.95);"
-            alt="Portrait of Erica Potts">
-          <img class="corner-ivy"
-            src="https://picsum.photos/seed/ivycorner/300/300"
-            style="filter:sepia(.4) saturate(2.2) hue-rotate(58deg) brightness(.82);"
-            alt="">
+          <div style="width:100%;height:100%;background:linear-gradient(160deg,#3d6b2e 0%,#5a8c47 40%,#2a4020 100%);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:15px;letter-spacing:.12em;color:rgba(255,255,255,.55);text-align:center;padding:24px;">[ Add Portrait Photo ]</div>
+          
         </div>
       </div>
       <!-- TEXT -->
@@ -461,12 +456,12 @@
     <!-- ILLUSTRATION -->
     <div class="tab-panel active" id="tab-ill">
       <div class="ggrid g3 rev">
-        <div class="gi"><img src="https://picsum.photos/seed/nat1/600/600" style="filter:saturate(1.2) hue-rotate(15deg);" alt="Forest Study I"><div class="gi-ov"><span class="gi-title">Forest Study I</span><span class="gi-sub">Nature · Ink on Paper</span></div></div>
-        <div class="gi"><img src="https://picsum.photos/seed/nat2/600/600" style="filter:saturate(1.1) hue-rotate(10deg) brightness(.9);" alt="Moon Bloom"><div class="gi-ov"><span class="gi-title">Moon Bloom</span><span class="gi-sub">Nature · Digital</span></div></div>
-        <div class="gi"><img src="https://picsum.photos/seed/nat3/600/600" style="filter:saturate(1.3) hue-rotate(20deg) brightness(.88);" alt="The Hollow"><div class="gi-ov"><span class="gi-title">The Hollow</span><span class="gi-sub">Fantasy · Mixed Media</span></div></div>
-        <div class="gi"><img src="https://picsum.photos/seed/nat4/600/600" style="filter:saturate(1.2) hue-rotate(18deg);" alt="Root System"><div class="gi-ov"><span class="gi-title">Root System</span><span class="gi-sub">Nature · Digital</span></div></div>
-        <div class="gi"><img src="https://picsum.photos/seed/nat5/600/600" style="filter:saturate(1.15) hue-rotate(12deg) brightness(.92);" alt="Verdant Reverie"><div class="gi-ov"><span class="gi-title">Verdant Reverie</span><span class="gi-sub">Fantasy · Watercolor</span></div></div>
-        <div class="gi"><img src="https://picsum.photos/seed/nat6/600/600" style="filter:saturate(.7) brightness(.75) contrast(1.1);" alt="Threshold"><div class="gi-ov"><span class="gi-title">Threshold</span><span class="gi-sub">Horror · Ink</span></div></div>
+        <div class="gi"><div style="width:100%;height:100%;background:linear-gradient(135deg,#3d6b2e,#4a7a38);"></div><div class="gi-ov"><span class="gi-title">Forest Study I</span><span class="gi-sub">Nature · Ink on Paper</span></div></div>
+        <div class="gi"><div style="width:100%;height:100%;background:linear-gradient(135deg,#2a5020,#3d6b2e);"></div><div class="gi-ov"><span class="gi-title">Moon Bloom</span><span class="gi-sub">Nature · Digital</span></div></div>
+        <div class="gi"><div style="width:100%;height:100%;background:linear-gradient(135deg,#4a6030,#5a7040);"></div><div class="gi-ov"><span class="gi-title">The Hollow</span><span class="gi-sub">Fantasy · Mixed Media</span></div></div>
+        <div class="gi"><div style="width:100%;height:100%;background:linear-gradient(135deg,#2d5825,#3a6e30);"></div><div class="gi-ov"><span class="gi-title">Root System</span><span class="gi-sub">Nature · Digital</span></div></div>
+        <div class="gi"><div style="width:100%;height:100%;background:linear-gradient(135deg,#3a6828,#4d7a35);"></div><div class="gi-ov"><span class="gi-title">Verdant Reverie</span><span class="gi-sub">Fantasy · Watercolor</span></div></div>
+        <div class="gi"><div style="width:100%;height:100%;background:linear-gradient(135deg,#3a2820,#503828);"></div><div class="gi-ov"><span class="gi-title">Threshold</span><span class="gi-sub">Horror · Ink</span></div></div>
       </div>
       <p class="g-note">Replace each <code>src</code> with Erica's actual artwork — 800×800px recommended.</p>
     </div>
@@ -474,22 +469,22 @@
     <!-- CHARACTER DESIGN -->
     <div class="tab-panel" id="tab-char">
       <div class="ggrid g3 rev">
-        <div class="gi"><img src="https://picsum.photos/seed/char1/600/600" style="filter:saturate(1.1) hue-rotate(25deg) brightness(.9);" alt="The Wanderer"><div class="gi-ov"><span class="gi-title">The Wanderer</span><span class="gi-sub">Fantasy · Character Sheet</span></div></div>
-        <div class="gi"><img src="https://picsum.photos/seed/char2/600/600" style="filter:saturate(.65) brightness(.72) contrast(1.15);" alt="Boa"><div class="gi-ov"><span class="gi-title">Boa</span><span class="gi-sub">Horror · Original Character</span></div></div>
-        <div class="gi"><img src="https://picsum.photos/seed/char3/600/600" style="filter:saturate(1.2) hue-rotate(20deg) brightness(.88);" alt="The Archivist"><div class="gi-ov"><span class="gi-title">The Archivist</span><span class="gi-sub">Fantasy · Turn-around</span></div></div>
-        <div class="gi"><img src="https://picsum.photos/seed/char4/600/600" style="filter:saturate(.6) brightness(.7) contrast(1.2);" alt="Lucky"><div class="gi-ov"><span class="gi-title">Lucky</span><span class="gi-sub">Horror · Mascot Design</span></div></div>
-        <div class="gi"><img src="https://picsum.photos/seed/char5/600/600" style="filter:saturate(1.3) hue-rotate(15deg) brightness(.92);" alt="Nyli"><div class="gi-ov"><span class="gi-title">Nyli</span><span class="gi-sub">Nature · Character Design</span></div></div>
-        <div class="gi"><img src="https://picsum.photos/seed/char6/600/600" style="filter:saturate(1.1) hue-rotate(30deg) brightness(.85);" alt="The Moth Queen"><div class="gi-ov"><span class="gi-title">The Moth Queen</span><span class="gi-sub">Fantasy · Original Character</span></div></div>
+        <div class="gi"><div style="width:100%;height:100%;background:linear-gradient(135deg,#2e5a28,#406030);"></div><div class="gi-ov"><span class="gi-title">The Wanderer</span><span class="gi-sub">Fantasy · Character Sheet</span></div></div>
+        <div class="gi"><div style="width:100%;height:100%;background:linear-gradient(135deg,#301818,#402828);"></div><div class="gi-ov"><span class="gi-title">Boa</span><span class="gi-sub">Horror · Original Character</span></div></div>
+        <div class="gi"><div style="width:100%;height:100%;background:linear-gradient(135deg,#2a5530,#3d6840);"></div><div class="gi-ov"><span class="gi-title">The Archivist</span><span class="gi-sub">Fantasy · Turn-around</span></div></div>
+        <div class="gi"><div style="width:100%;height:100%;background:linear-gradient(135deg,#281818,#382828);"></div><div class="gi-ov"><span class="gi-title">Lucky</span><span class="gi-sub">Horror · Mascot Design</span></div></div>
+        <div class="gi"><div style="width:100%;height:100%;background:linear-gradient(135deg,#306028,#427530);"></div><div class="gi-ov"><span class="gi-title">Nyli</span><span class="gi-sub">Nature · Character Design</span></div></div>
+        <div class="gi"><div style="width:100%;height:100%;background:linear-gradient(135deg,#2a4038,#3a5548);"></div><div class="gi-ov"><span class="gi-title">The Moth Queen</span><span class="gi-sub">Fantasy · Original Character</span></div></div>
       </div>
     </div>
 
     <!-- GRAPHIC DESIGN -->
     <div class="tab-panel" id="tab-gfx">
       <div class="ggrid g2 rev">
-        <div class="gi"><img src="https://picsum.photos/seed/gfx1/800/600" style="filter:saturate(1.2) hue-rotate(18deg) brightness(.9);" alt="Brand Identity"><div class="gi-ov"><span class="gi-title">Brand Identity</span><span class="gi-sub">Graphic Design · Branding</span></div></div>
-        <div class="gi"><img src="https://picsum.photos/seed/gfx2/800/600" style="filter:saturate(.9) brightness(.85) sepia(.15);" alt="Editorial Layout"><div class="gi-ov"><span class="gi-title">Editorial Layout</span><span class="gi-sub">Graphic Design · Print</span></div></div>
-        <div class="gi"><img src="https://picsum.photos/seed/gfx3/800/600" style="filter:saturate(1.3) hue-rotate(22deg) brightness(.88);" alt="MarrowVeil Assets"><div class="gi-ov"><span class="gi-title">MarrowVeil Assets</span><span class="gi-sub">Graphic Design · Studio Work</span></div></div>
-        <div class="gi"><img src="https://picsum.photos/seed/gfx4/800/600" style="filter:saturate(.6) brightness(.72) contrast(1.1);" alt="Poster Series"><div class="gi-ov"><span class="gi-title">Poster Series</span><span class="gi-sub">Graphic Design · Print</span></div></div>
+        <div class="gi"><div style="width:100%;height:100%;background:linear-gradient(135deg,#355a28,#487030);"></div><div class="gi-ov"><span class="gi-title">Brand Identity</span><span class="gi-sub">Graphic Design · Branding</span></div></div>
+        <div class="gi"><div style="width:100%;height:100%;background:linear-gradient(135deg,#302818,#403828);"></div><div class="gi-ov"><span class="gi-title">Editorial Layout</span><span class="gi-sub">Graphic Design · Print</span></div></div>
+        <div class="gi"><div style="width:100%;height:100%;background:linear-gradient(135deg,#28502a,#386535);"></div><div class="gi-ov"><span class="gi-title">MarrowVeil Assets</span><span class="gi-sub">Graphic Design · Studio Work</span></div></div>
+        <div class="gi"><div style="width:100%;height:100%;background:linear-gradient(135deg,#282018,#383028);"></div><div class="gi-ov"><span class="gi-title">Poster Series</span><span class="gi-sub">Graphic Design · Print</span></div></div>
       </div>
     </div>
 
@@ -508,11 +503,7 @@
 
 <!-- ══ CONTACT ══ -->
 <section id="contact">
-  <img class="contact-bg-img"
-    src="https://picsum.photos/seed/forest8/1400/900"
-    style="filter:saturate(1.2) hue-rotate(18deg) brightness(.7);"
-    alt=""
-    loading="lazy">
+  
   <div class="contact-inner wrap" style="padding-bottom:280px;">
     <div class="cgrid">
       <div class="rev">
