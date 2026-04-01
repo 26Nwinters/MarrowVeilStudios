@@ -1,4 +1,4 @@
-/ ── Mobile menu ─────────────────────────────────────────────
+// ── Mobile menu ─────────────────────────────────────────────
 const hamburger = document.getElementById('hamburger');
 const mobileMenu = document.getElementById('mobile-menu');
 if (hamburger) {
