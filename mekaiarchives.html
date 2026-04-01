@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#080810" />
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://marrowveilstudios.com/assets/games/MekAI-banner.png">
+  <link rel="icon" type="image/png" href="favicon_blogo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <title>Mek-Ai Archives | MarrowVeil Studios</title>
+  <meta name="description" content="Access a compromised Meka Corporation system. A thriller-horror ARG investigation experience." />
+  <meta property="og:title" content="Mek-Ai Archives | MarrowVeil Studios">
+  <meta property="og:url" content="https://marrowveilstudios.com/mekaiarchives.html">
+  <link rel="canonical" href="https://marrowveilstudios.com/mekaiarchives.html">
+
+  <style>
+    /* ══════════════════════════════════════════════
+       MEK-AI ARCHIVES — clinical, system-like, terse
+    ══════════════════════════════════════════════ */
+
+    --mono: 'Share Tech Mono', monospace;
+
+    /* ── Hero ── */
+    .ma-hero {
+      position: relative;
+      width: 100%;
+      min-height: 100svh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+
+    .ma-hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url(assets/games/MekAI-banner.png);
+      background-size: cover;
+      background-position: center;
+      filter: brightness(0.25) saturate(0.4);
+    }
+
+    /* Grid overlay — system aesthetic */
+    .ma-hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(114,194,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(114,194,255,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+    }
+
+    .ma-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(8,8,16,0.95) 50%, rgba(8,8,16,0.4) 100%);
+    }
+
+    .ma-hero-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      padding: var(--pad);
+      padding-top: clamp(7rem, 14vw, 10rem);
+      padding-bottom: clamp(4rem, 8vw, 6rem);
+    }
+
+    /* Terminal log line */
+    .ma-log-line {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      color: rgba(114,194,255,0.5);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: maFadeIn 0.6s ease forwards 0.2s;
+    }
+
+    .ma-log-line::before { content: '> '; color: rgba(114,194,255,0.3); }
+
+    .ma-hero-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid var(--gold-dim);
+      padding: 0.3rem 0.8rem;
+      margin-bottom: 1.5rem;
+      background: rgba(8,8,16,0.7);
+      opacity: 0;
+      animation: maFadeIn 0.6s ease forwards 0.4s;
+    }
+
+    .ma-hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 9vw, 7rem);
+      letter-spacing: 0.04em;
+      line-height: 0.9;
+      color: var(--cream);
+      margin-bottom: 1.75rem;
+      opacity: 0;
+      animation: maFadeIn 0.7s ease forwards 0.55s;
+    }
+
+    .ma-hero-title span {
+      display: block;
+      font-size: clamp(1.5rem, 4vw, 3rem);
+      color: rgba(114,194,255,0.6);
+      letter-spacing: 0.15em;
+    }
+
+    .ma-hero-tagline {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      color: var(--muted);
+      font-weight: 300;
+      max-width: 460px;
+      line-height: 1.75;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: maFadeIn 0.7s ease forwards 0.7s;
+    }
+
+    .ma-hero-ctas {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: maFadeIn 0.6s ease forwards 0.9s;
+    }
+
+    /* ── Section spacing — tighter than HourGlass ── */
+    .ma-section {
+      padding: clamp(3.5rem, 7vw, 6rem) 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .ma-section:last-of-type { border-bottom: none; }
+
+    /* ── Log / terminal boxes ── */
+    .ma-log-box {
+      background: rgba(114,194,255,0.02);
+      border: 1px solid rgba(114,194,255,0.08);
+      border-left: 2px solid rgba(114,194,255,0.2);
+      padding: 1.5rem 1.75rem;
+      margin: 2rem 0;
+    }
+
+    .ma-log-box-header {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(114,194,255,0.4);
+      margin-bottom: 0.75rem;
+    }
+
+    .ma-log-box-body {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .ma-log-box-body .highlight { color: rgba(114,194,255,0.7); }
+
+    /* ── Two col layout ── */
+    .ma-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+
+    @media (min-width: 900px) {
+      .ma-grid { grid-template-columns: 1fr 1fr; gap: 4rem; }
+    }
+
+    /* ── Story text ── */
+    .ma-heading {
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 4vw, 2.75rem);
+      letter-spacing: 0.05em;
+      color: var(--cream);
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+    }
+
+    .ma-body {
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.9;
+      font-weight: 300;
+    }
+
+    .ma-body + .ma-body { margin-top: 1rem; }
+
+    /* ── Feature list — rigid, data-like ── */
+    .ma-features {
+      display: grid;
+      grid-template-columns: 1fr;
+      border: 1px solid var(--border);
+    }
+
+    @media (min-width: 640px) {
+      .ma-features { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (min-width: 1024px) {
+      .ma-features { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    .ma-feature {
+      padding: 1.5rem 1.75rem;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.25s;
+    }
+
+    .ma-feature:hover { background: rgba(114,194,255,0.02); }
+
+    .ma-feature-label {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(114,194,255,0.4);
+      margin-bottom: 0.5rem;
+    }
+
+    .ma-feature-title {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      letter-spacing: 0.05em;
+      color: var(--cream);
+      margin-bottom: 0.4rem;
+    }
+
+    .ma-feature-desc {
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      color: var(--dim);
+      line-height: 1.65;
+      font-weight: 300;
+    }
+
+    /* ── Screenshots ── */
+    .ma-screenshots {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    @media (min-width: 768px) {
+      .ma-screenshots { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    .ma-screenshot {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 16 / 9;
+      background: var(--bg-dark);
+    }
+
+    .ma-screenshot img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      filter: brightness(0.75) saturate(0.5);
+      transition: transform 0.4s ease, filter 0.3s;
+    }
+
+    .ma-screenshot:hover img { transform: scale(1.04); filter: brightness(0.9) saturate(0.65); }
+
+    .ma-screenshot-ph {
+      width: 100%; height: 100%;
+      background:
+        radial-gradient(ellipse at 50% 50%, rgba(114,194,255,0.04) 0%, transparent 60%),
+        #08080f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ma-screenshot-ph span {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.7rem;
+      color: rgba(114,194,255,0.2);
+      letter-spacing: 0.3em;
+    }
+
+    /* ── CTA band ── */
+    .ma-cta-band {
+      text-align: center;
+      padding: clamp(4rem, 8vw, 7rem) 0;
+      position: relative;
+    }
+
+    .ma-cta-band::before {
+      content: 'SESSION_ACTIVE';
+      position: absolute;
+      top: 2rem; left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      color: rgba(114,194,255,0.1);
+    }
+
+    .ma-cta-eyebrow {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      color: rgba(114,194,255,0.4);
+      margin-bottom: 1.25rem;
+    }
+
+    .ma-cta-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      letter-spacing: 0.05em;
+      color: var(--cream);
+      margin-bottom: 2rem;
+    }
+
+    .ma-cta-btns {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ── Animations ── */
+    @keyframes maFadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div id="nav-placeholder"></div>
+
+  <!-- HERO -->
+  <section class="ma-hero">
+    <div class="ma-hero-bg"></div>
+    <div class="ma-hero-grid"></div>
+    <div class="ma-hero-overlay"></div>
+    <div class="ma-hero-content container">
+      <div class="ma-log-line">SYSTEM: archive_access_initiated — user_session_logged</div>
+      <div class="ma-hero-status">
+        <span style="width:5px;height:5px;border-radius:50%;background:var(--gold);animation:pulse 2s infinite;"></span>
+        In Development
+      </div>
+      <h1 class="ma-hero-title">
+        MEK-AI
+        <span>ARCHIVES</span>
+      </h1>
+      <p class="ma-hero-tagline">The system was decommissioned. The files were sealed. Someone left a way back in.</p>
+      <div class="ma-hero-ctas">
+        <a href="#overview" class="btn-gold">View Files</a>
+        <a href="https://26nwinters.github.io/Mek-Ai_Archive/" target="_blank" rel="noopener" class="btn-ghost">Access Terminal</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+
+    <!-- OVERVIEW -->
+    <section class="ma-section" id="overview">
+      <div class="ma-grid reveal">
+        <div>
+          <div class="section-header" style="margin-bottom:1.75rem;">
+            <span class="label-gold">01 — Overview</span>
+            <div class="rule-gold"></div>
+          </div>
+          <h2 class="ma-heading">The archive<br>is compromised.</h2>
+          <p class="ma-body">Mek-Ai: Archives places players inside a fractured corporate system — a Meka Corporation laptop left running long after it should have gone dark. Guided by Ava Keep, players navigate corrupted file structures, recover missing employee records, and decrypt communications that were never meant to be read.</p>
+          <p class="ma-body">The deeper the investigation goes, the more the system resists. A corporate Fixer is monitoring the breach in real time. Every file opened is a trade — information for exposure.</p>
+        </div>
+        <div>
+          <div class="ma-log-box">
+            <div class="ma-log-box-header">// incident_log · INC-0001</div>
+            <div class="ma-log-box-body">
+              ACCESS_EVENT detected at <span class="highlight">03:14:22</span><br>
+              USER: <span class="highlight">unknown</span><br>
+              CLEARANCE: <span class="highlight">L0</span><br>
+              STATUS: <span class="highlight">session_active</span><br>
+              NOTE: breach_pattern matches prior intrusion — <span class="highlight">escalate to Fixer</span>
+            </div>
+          </div>
+          <div class="ma-log-box" style="margin-top:1rem;">
+            <div class="ma-log-box-header">// system_note</div>
+            <div class="ma-log-box-body">
+              This is a browser-based experience.<br>
+              No installation required.<br>
+              <span class="highlight">Clearance levels gate content.</span><br>
+              Not all files can be recovered.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WORLD -->
+    <section class="ma-section">
+      <div class="section-header reveal" style="margin-bottom:2.5rem;">
+        <span class="label-gold">02 — The System</span>
+        <div class="rule-gold"></div>
+      </div>
+      <div class="ma-grid reveal">
+        <div>
+          <h2 class="ma-heading">Layers of<br>access. Layers<br>of truth.</h2>
+        </div>
+        <div>
+          <p class="ma-body">The Meka Corporation archive is structured across clearance tiers. Each tier unlocks new files, new employee records, and new evidence of what the corporation was actually running beneath its public-facing operations. Progress is earned through observation and puzzle-solving — not brute force.</p>
+          <p class="ma-body">Mek-Ai: Archives is a companion experience to HourGlass: Missing Time. Events in one inform the other. The full picture only emerges when both are explored.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="ma-section">
+      <div class="section-header reveal" style="margin-bottom:2rem;">
+        <span class="label-gold">03 — System Features</span>
+        <div class="rule-gold"></div>
+      </div>
+      <div class="ma-features reveal">
+        <div class="ma-feature">
+          <div class="ma-feature-label">MODULE_01</div>
+          <div class="ma-feature-title">Multi-Layer Puzzle System</div>
+          <p class="ma-feature-desc">Clearance tiers gate content. Codes are hidden in the system itself.</p>
+        </div>
+        <div class="ma-feature">
+          <div class="ma-feature-label">MODULE_02</div>
+          <div class="ma-feature-title">In-Universe Lore</div>
+          <p class="ma-feature-desc">Employee files, incident reports, and internal communications tell the real story.</p>
+        </div>
+        <div class="ma-feature">
+          <div class="ma-feature-label">MODULE_03</div>
+          <div class="ma-feature-title">ARG Design</div>
+          <p class="ma-feature-desc">The line between the game and reality is deliberately unclear.</p>
+        </div>
+        <div class="ma-feature">
+          <div class="ma-feature-label">MODULE_04</div>
+          <div class="ma-feature-title">Clearance Progression</div>
+          <p class="ma-feature-desc">L0 to L3. Each level reveals more. Not everything can be unlocked.</p>
+        </div>
+        <div class="ma-feature">
+          <div class="ma-feature-label">MODULE_05</div>
+          <div class="ma-feature-title">Browser-Based</div>
+          <p class="ma-feature-desc">No installation. No launcher. Access the system from anywhere.</p>
+        </div>
+        <div class="ma-feature">
+          <div class="ma-feature-label">MODULE_06</div>
+          <div class="ma-feature-title">Companion to Missing Time</div>
+          <p class="ma-feature-desc">Events overlap. What you find here changes what you understand there.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREENSHOTS -->
+    <section class="ma-section">
+      <div class="section-header reveal" style="margin-bottom:2rem;">
+        <span class="label-gold">04 — Interface Preview</span>
+        <div class="rule-gold"></div>
+      </div>
+      <div class="ma-screenshots reveal">
+        <div class="ma-screenshot"><div class="ma-screenshot-ph"><span>NO_SIGNAL</span></div></div>
+        <div class="ma-screenshot"><div class="ma-screenshot-ph"><span>NO_SIGNAL</span></div></div>
+        <div class="ma-screenshot"><div class="ma-screenshot-ph"><span>NO_SIGNAL</span></div></div>
+        <div class="ma-screenshot"><div class="ma-screenshot-ph"><span>NO_SIGNAL</span></div></div>
+        <div class="ma-screenshot"><div class="ma-screenshot-ph"><span>NO_SIGNAL</span></div></div>
+        <div class="ma-screenshot"><div class="ma-screenshot-ph"><span>NO_SIGNAL</span></div></div>
+      </div>
+      <p style="font-family:'Share Tech Mono',monospace;font-size:0.65rem;color:rgba(114,194,255,0.25);margin-top:0.75rem;letter-spacing:0.15em;">// CAPTURE_DATA_RESTRICTED — preview assets pending clearance</p>
+    </section>
+
+    <!-- DEVELOPMENT INFO -->
+    <section class="ma-section">
+      <div class="section-header reveal" style="margin-bottom:2rem;">
+        <span class="label-gold">05 — System Info</span>
+        <div class="rule-gold"></div>
+      </div>
+      <div class="games-stats reveal">
+        <div class="games-stat">
+          <div class="games-stat-label">Status</div>
+          <div class="games-stat-value">In Development</div>
+        </div>
+        <div class="games-stat">
+          <div class="games-stat-label">Platform</div>
+          <div class="games-stat-value">Browser</div>
+        </div>
+        <div class="games-stat">
+          <div class="games-stat-label">Stack</div>
+          <div class="games-stat-value">HTML · CSS · JS</div>
+        </div>
+        <div class="games-stat">
+          <div class="games-stat-label">Studio</div>
+          <div class="games-stat-value">MarrowVeil</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="ma-cta-band reveal">
+      <p class="ma-cta-eyebrow">// access_level: public — deeper files require clearance</p>
+      <h2 class="ma-cta-title">The system is waiting.</h2>
+      <div class="ma-cta-btns">
+        <a href="https://26nwinters.github.io/Mek-Ai_Archive/" target="_blank" rel="noopener" class="btn-gold">Access Terminal</a>
+        <a href="games.html" class="btn-ghost">All Games</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="footer-placeholder"></div>
+  <script src="script.js"></script>
+</body>
+</html>

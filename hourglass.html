@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#080810" />
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://marrowveilstudios.com/assets/games/hourglass-banner.png">
+  <link rel="icon" type="image/png" href="favicon_blogo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <title>HourGlass: Missing Time | MarrowVeil Studios</title>
+  <meta name="description" content="A narrative-driven psychological horror game. Something in the walls is still running." />
+  <meta property="og:title" content="HourGlass: Missing Time | MarrowVeil Studios">
+  <meta property="og:url" content="https://marrowveilstudios.com/hourglass.html">
+  <link rel="canonical" href="https://marrowveilstudios.com/hourglass.html">
+
+  <style>
+    /* ══════════════════════════════════════════
+       HOURGLASS PAGE — atmospheric, slow, moody
+    ══════════════════════════════════════════ */
+
+    /* Full-bleed cinematic hero */
+    .hg-hero {
+      position: relative;
+      width: 100%;
+      height: 100svh;
+      min-height: 600px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    .hg-hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url(assets/games/hourglass-banner.png);
+      background-size: cover;
+      background-position: center;
+      filter: brightness(0.4) saturate(0.6);
+      transform: scale(1.04);
+      transition: transform 8s ease;
+    }
+
+    .hg-hero-bg.loaded { transform: scale(1); }
+
+    /* Fog-like gradient layers */
+    .hg-hero-fog {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 80%, rgba(8,8,16,0.6) 0%, transparent 60%),
+        linear-gradient(to top, rgba(8,8,16,1) 0%, rgba(8,8,16,0.5) 40%, rgba(8,8,16,0.1) 100%);
+    }
+
+    .hg-hero-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      padding: var(--pad);
+      padding-bottom: clamp(3rem, 7vw, 6rem);
+    }
+
+    .hg-hero-eyebrow {
+      font-family: var(--font-body);
+      font-size: 0.68rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: hgFadeUp 1.2s ease forwards 0.3s;
+    }
+
+    .hg-hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(3.5rem, 10vw, 8rem);
+      letter-spacing: 0.04em;
+      line-height: 0.9;
+      color: var(--cream);
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: hgFadeUp 1.4s ease forwards 0.5s;
+    }
+
+    .hg-hero-title span { color: var(--gold); display: block; }
+
+    .hg-hero-tagline {
+      font-family: var(--font-body);
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--muted);
+      font-weight: 300;
+      font-style: italic;
+      max-width: 480px;
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: hgFadeUp 1.4s ease forwards 0.75s;
+    }
+
+    .hg-hero-ctas {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: hgFadeUp 1.2s ease forwards 1s;
+    }
+
+    .hg-hero-scroll {
+      position: absolute;
+      bottom: 2rem;
+      right: var(--pad);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      opacity: 0;
+      animation: hgFadeUp 1s ease forwards 1.3s;
+    }
+
+    .hg-hero-scroll-label {
+      font-family: var(--font-body);
+      font-size: 0.58rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--dim);
+      writing-mode: vertical-rl;
+    }
+
+    .hg-hero-scroll-line {
+      width: 1px;
+      height: 48px;
+      background: linear-gradient(to bottom, var(--gold-dim), transparent);
+      animation: scrollPulse 2.5s ease-in-out infinite;
+    }
+
+    /* ── Breathing section spacing ── */
+    .hg-section {
+      padding: clamp(5rem, 10vw, 9rem) 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hg-section:last-of-type { border-bottom: none; }
+
+    /* ── Story section ── */
+    .hg-story-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    @media (min-width: 900px) {
+      .hg-story-grid { grid-template-columns: 1fr 1.4fr; gap: 6rem; }
+    }
+
+    .hg-story-label {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .hg-story-heading {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      letter-spacing: 0.05em;
+      color: var(--cream);
+      line-height: 1.05;
+      margin-bottom: 2rem;
+    }
+
+    .hg-story-body {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 2;
+      font-weight: 300;
+    }
+
+    .hg-story-body + .hg-story-body { margin-top: 1.25rem; }
+
+    /* ── Image with atmospheric treatment ── */
+    .hg-img-wrap {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hg-img-wrap img {
+      width: 100%;
+      display: block;
+      filter: brightness(0.75) saturate(0.7);
+      transition: filter 0.6s ease;
+    }
+
+    .hg-img-wrap:hover img { filter: brightness(0.9) saturate(0.85); }
+
+    .hg-img-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(8,8,16,0.4) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    /* ── Feature list ── */
+    .hg-features {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+      border: 1px solid var(--border);
+    }
+
+    @media (min-width: 640px) {
+      .hg-features { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (min-width: 1024px) {
+      .hg-features { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    .hg-feature {
+      padding: 2rem 2rem;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.4s;
+    }
+
+    .hg-feature:hover { background: rgba(255,255,255,0.02); }
+
+    .hg-feature-icon {
+      color: var(--gold);
+      font-size: 0.7rem;
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+
+    .hg-feature-title {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      letter-spacing: 0.05em;
+      color: var(--cream);
+      margin-bottom: 0.5rem;
+    }
+
+    .hg-feature-desc {
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      color: var(--dim);
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    /* ── Screenshots ── */
+    .hg-screenshots {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    @media (min-width: 768px) {
+      .hg-screenshots { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    .hg-screenshot {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 16 / 9;
+      background: var(--bg-dark);
+    }
+
+    .hg-screenshot img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: brightness(0.8) saturate(0.7);
+      transition: transform 0.6s ease, filter 0.4s;
+    }
+
+    .hg-screenshot:hover img {
+      transform: scale(1.05);
+      filter: brightness(0.95) saturate(0.9);
+    }
+
+    /* Screenshot placeholder */
+    .hg-screenshot-ph {
+      width: 100%; height: 100%;
+      background:
+        radial-gradient(ellipse at 40% 50%, rgba(180,140,60,0.06) 0%, transparent 60%),
+        #0a0a14;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hg-screenshot-ph span {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      color: var(--gold-dim);
+      letter-spacing: 0.3em;
+    }
+
+    /* ── CTA band ── */
+    .hg-cta-band {
+      text-align: center;
+      padding: clamp(5rem, 10vw, 8rem) 0;
+    }
+
+    .hg-cta-band-eyebrow {
+      font-family: var(--font-body);
+      font-size: 0.68rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-bottom: 1.5rem;
+    }
+
+    .hg-cta-band-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 4rem);
+      letter-spacing: 0.05em;
+      color: var(--cream);
+      margin-bottom: 2rem;
+    }
+
+    .hg-cta-band-btns {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ── Animations ── */
+    @keyframes hgFadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div id="nav-placeholder"></div>
+
+  <!-- HERO -->
+  <section class="hg-hero">
+    <div class="hg-hero-bg" id="hgBg"></div>
+    <div class="hg-hero-fog"></div>
+    <div class="hg-hero-content container">
+      <p class="hg-hero-eyebrow">MarrowVeil Studios · Narrative Horror · PC</p>
+      <h1 class="hg-hero-title">
+        HOURGLASS:
+        <span>MISSING TIME</span>
+      </h1>
+      <p class="hg-hero-tagline">She went looking for her sister. Something in the walls is still running.</p>
+      <div class="hg-hero-ctas">
+        <a href="#story" class="btn-gold">Explore the Story</a>
+        <a href="#" class="btn-ghost">Wishlist on Steam</a>
+      </div>
+    </div>
+    <div class="hg-hero-scroll">
+      <div class="hg-hero-scroll-line"></div>
+      <span class="hg-hero-scroll-label">Scroll</span>
+    </div>
+  </section>
+
+  <div class="container">
+
+    <!-- STORY -->
+    <section class="hg-section" id="story">
+      <div class="hg-story-grid reveal">
+        <div>
+          <div class="hg-story-label">
+            <span class="label-gold">01 — The Story</span>
+            <div class="rule-gold"></div>
+          </div>
+          <h2 class="hg-story-heading">Something<br>was left behind.</h2>
+          <p class="hg-story-body">Boa Vandyke is nineteen years old when she receives the message. It's from her sister — or at least, it uses her sister's words. The signal traces back to a decommissioned Meka Corporation family entertainment center. The kind of place that used to have birthday parties. The kind of place that should be empty.</p>
+          <p class="hg-story-body">What begins as a search becomes something else entirely. The building remembers. The animatronics never fully stopped. And the deeper Boa goes, the more she starts to wonder if her sister was the first to find this place — or just the most recent.</p>
+        </div>
+        <div>
+          <div class="hg-img-wrap">
+            <div class="hg-screenshot-ph" style="aspect-ratio:2/3;"><span>◈</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECOND STORY BEAT -->
+    <section class="hg-section">
+      <div class="hg-story-grid reveal" style="direction:rtl;">
+        <div style="direction:ltr;">
+          <div class="hg-story-label">
+            <span class="label-gold">02 — The World</span>
+            <div class="rule-gold"></div>
+          </div>
+          <h2 class="hg-story-heading">Abandoned.<br>Not forgotten.</h2>
+          <p class="hg-story-body">The Meka Corporation built more than entertainment. Behind the dining rooms and arcade halls, behind the performers and the music, was a network of systems that were never meant to be found. HourGlass: Missing Time takes players through the diner, the playzone, the arcade, the back office, and deeper — into spaces that were sealed for a reason.</p>
+          <p class="hg-story-body">Every environment is a record. Every detail was placed intentionally. The story isn't told to you — it's waiting for you to find it.</p>
+        </div>
+        <div style="direction:ltr;">
+          <div class="hg-img-wrap">
+            <div class="hg-screenshot-ph" style="aspect-ratio:2/3;"><span>◈</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="hg-section">
+      <div class="section-header reveal">
+        <span class="label-gold">03 — Features</span>
+        <div class="rule-gold"></div>
+      </div>
+      <div class="hg-features reveal">
+        <div class="hg-feature">
+          <span class="hg-feature-icon">◈</span>
+          <div class="hg-feature-title">Branching Narrative</div>
+          <p class="hg-feature-desc">Choices accumulate. The story responds to what you do and what you leave behind.</p>
+        </div>
+        <div class="hg-feature">
+          <span class="hg-feature-icon">◈</span>
+          <div class="hg-feature-title">Environmental Storytelling</div>
+          <p class="hg-feature-desc">No exposition. The building tells you what happened if you're willing to look.</p>
+        </div>
+        <div class="hg-feature">
+          <span class="hg-feature-icon">◈</span>
+          <div class="hg-feature-title">Original Soundtrack</div>
+          <p class="hg-feature-desc">A score built around tension, memory, and the uncomfortable feeling of being watched.</p>
+        </div>
+        <div class="hg-feature">
+          <span class="hg-feature-icon">◈</span>
+          <div class="hg-feature-title">Atmospheric Horror</div>
+          <p class="hg-feature-desc">Slow-burn dread over cheap scares. The fear is in what you don't fully understand.</p>
+        </div>
+        <div class="hg-feature">
+          <span class="hg-feature-icon">◈</span>
+          <div class="hg-feature-title">Puzzle Systems</div>
+          <p class="hg-feature-desc">Environmental puzzles that require observation and memory, not reflexes.</p>
+        </div>
+        <div class="hg-feature">
+          <span class="hg-feature-icon">◈</span>
+          <div class="hg-feature-title">Audio-Only Mechanics</div>
+          <p class="hg-feature-desc">Some things you'll never see. You'll only hear them getting closer.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREENSHOTS -->
+    <section class="hg-section">
+      <div class="section-header reveal">
+        <span class="label-gold">04 — Screenshots</span>
+        <div class="rule-gold"></div>
+      </div>
+      <div class="hg-screenshots reveal">
+        <div class="hg-screenshot"><div class="hg-screenshot-ph"><span>◈</span></div></div>
+        <div class="hg-screenshot"><div class="hg-screenshot-ph"><span>◈</span></div></div>
+        <div class="hg-screenshot"><div class="hg-screenshot-ph"><span>◈</span></div></div>
+        <div class="hg-screenshot"><div class="hg-screenshot-ph"><span>◈</span></div></div>
+        <div class="hg-screenshot"><div class="hg-screenshot-ph"><span>◈</span></div></div>
+        <div class="hg-screenshot"><div class="hg-screenshot-ph"><span>◈</span></div></div>
+      </div>
+      <p style="font-family:var(--font-body);font-size:0.75rem;color:var(--dim);margin-top:1rem;letter-spacing:0.1em;">Screenshots will be added as development progresses.</p>
+    </section>
+
+    <!-- DEVELOPMENT INFO -->
+    <section class="hg-section">
+      <div class="section-header reveal">
+        <span class="label-gold">05 — Development</span>
+        <div class="rule-gold"></div>
+      </div>
+      <div class="games-stats reveal">
+        <div class="games-stat">
+          <div class="games-stat-label">Status</div>
+          <div class="games-stat-value">In Development</div>
+        </div>
+        <div class="games-stat">
+          <div class="games-stat-label">Platform</div>
+          <div class="games-stat-value">PC · Windows</div>
+        </div>
+        <div class="games-stat">
+          <div class="games-stat-label">Engine</div>
+          <div class="games-stat-value">Unreal Engine 5</div>
+        </div>
+        <div class="games-stat">
+          <div class="games-stat-label">Studio</div>
+          <div class="games-stat-value">MarrowVeil</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="hg-cta-band reveal">
+      <p class="hg-cta-band-eyebrow">Coming to Steam</p>
+      <h2 class="hg-cta-band-title">Don't go in alone.</h2>
+      <div class="hg-cta-band-btns">
+        <a href="#" class="btn-gold">Wishlist on Steam</a>
+        <a href="games.html" class="btn-ghost">All Games</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="footer-placeholder"></div>
+  <script src="script.js"></script>
+  <script>
+    /* Slow zoom on load */
+    window.addEventListener('load', () => {
+      document.getElementById('hgBg').classList.add('loaded');
+    });
+  </script>
+</body>
+</html>

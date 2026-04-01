@@ -17,10 +17,224 @@
   <meta property="og:title" content="Our Games | MarrowVeil Studios">
   <meta property="og:url" content="https://marrowveilstudios.com/games.html">
   <link rel="canonical" href="https://marrowveilstudios.com/games.html">
+
+  <style>
+    /* ── Cinematic game entry banners ── */
+    .game-portal {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin-top: 3rem;
+    }
+
+    @media (min-width: 768px) {
+      .game-portal { grid-template-columns: 1fr 1fr; }
+    }
+
+    .game-portal-entry {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      background: var(--bg-dark);
+    }
+
+    .game-portal-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.8s ease, filter 0.5s ease;
+      filter: brightness(0.35) saturate(0.7);
+    }
+
+    .game-portal-entry:hover .game-portal-bg {
+      transform: scale(1.04);
+      filter: brightness(0.55) saturate(0.85);
+    }
+
+    .game-portal-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(8,8,16,0.92) 0%, rgba(8,8,16,0.3) 60%, transparent 100%);
+    }
+
+    .game-portal-content {
+      position: relative;
+      z-index: 2;
+      padding: clamp(2.5rem, 6vw, 5rem) clamp(1.5rem, 4vw, 3rem);
+      min-height: clamp(340px, 45vw, 560px);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .game-portal-status {
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid var(--gold-dim);
+      padding: 0.25rem 0.7rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-bottom: 1.25rem;
+      width: fit-content;
+      background: rgba(8,8,16,0.6);
+      backdrop-filter: blur(4px);
+    }
+
+    .game-portal-status-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--gold);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .game-portal-num {
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      letter-spacing: 0.3em;
+      color: var(--dim);
+      margin-bottom: 0.5rem;
+    }
+
+    .game-portal-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      letter-spacing: 0.05em;
+      line-height: 0.95;
+      color: var(--cream);
+      margin-bottom: 0.75rem;
+      transition: color 0.3s;
+    }
+
+    .game-portal-entry:hover .game-portal-title { color: var(--gold); }
+
+    .game-portal-type {
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.25rem;
+    }
+
+    .game-portal-desc {
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      color: var(--dim);
+      line-height: 1.7;
+      max-width: 420px;
+      font-weight: 300;
+      margin-bottom: 1.75rem;
+    }
+
+    .game-portal-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--cream);
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 0.65rem 1.4rem;
+      transition: border-color 0.3s, color 0.3s, background 0.3s;
+    }
+
+    .game-portal-entry:hover .game-portal-cta {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(201,168,76,0.06);
+    }
+
+    .game-portal-cta-arrow {
+      transition: transform 0.25s;
+    }
+
+    .game-portal-entry:hover .game-portal-cta-arrow { transform: translateX(4px); }
+
+    /* ── Additional / future titles grid ── */
+    .games-future {
+      margin-top: 5rem;
+      padding-bottom: 6rem;
+    }
+
+    .games-future-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    @media (min-width: 640px) {
+      .games-future-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (min-width: 1024px) {
+      .games-future-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    .future-card {
+      background: var(--bg);
+      padding: 2rem;
+      transition: background 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .future-card:hover { background: rgba(255,255,255,0.02); }
+
+    .future-card-num {
+      font-family: var(--font-display);
+      font-size: 4rem;
+      color: rgba(255,255,255,0.03);
+      position: absolute;
+      top: 0.5rem; right: 1rem;
+      line-height: 1;
+      user-select: none;
+    }
+
+    .future-card-label {
+      font-family: var(--font-body);
+      font-size: 0.62rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-bottom: 1rem;
+    }
+
+    .future-card-title {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      letter-spacing: 0.05em;
+      color: var(--cream);
+      margin-bottom: 0.5rem;
+    }
+
+    .future-card-desc {
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      color: var(--dim);
+      line-height: 1.7;
+      font-weight: 300;
+    }
+  </style>
 </head>
 <body>
   <div id="nav-placeholder"></div>
 
+  <!-- PAGE HERO -->
   <div class="page-hero">
     <div class="container">
       <div class="page-hero-eyebrow reveal">Our Titles</div>
@@ -48,73 +262,92 @@
         <div class="games-stat-value">8 Years</div>
       </div>
     </div>
-  </div>
 
-  <div class="games-list">
-
-    <!-- GAME 1 -->
-    <div class="game-entry reveal">
-      <div class="game-entry-banner">
-        <div class="game-entry-banner-bg" style="background-image: url(assets/games/hourglass-banner.png);"></div>
-        <div class="game-entry-banner-overlay"></div>
-        <div class="game-entry-badge status-dev">In Development</div>
-        <div class="game-entry-bg-number">01</div>
-      </div>
-      <div class="game-entry-info">
-        <div class="game-entry-name">HOURGLASS: MISSING TIME</div>
-        <div class="game-entry-type">Narrative Horror · PC</div>
-        <div class="game-entry-tags">
-          <span class="game-tag">Psychological Horror</span>
-          <span class="game-tag">Narrative</span>
-          <span class="game-tag">Mystery</span>
-          <span class="game-tag">PC</span>
-        </div>
-        <p class="game-entry-desc">Hourglass: Missing Time is a narrative-driven psychological horror game developed by MarrowVeil Studios. Players follow Boa Vandyke, a 19-year-old searching for her missing sister after receiving a cryptic message that leads her into a network of abandoned Meka Corporation locations. What begins as a personal investigation quickly spirals into something far more unsettling.</p>
-        <p class="game-entry-desc">Blending stealth, exploration, and environmental puzzle-solving, players must navigate hostile animatronic units, uncover hidden evidence, and piece together the truth behind a long-buried corporate cover-up. As Boa pushes deeper, reality begins to fracture — and the closer she gets to answers, the more she risks becoming part of what she was trying to find.</p>
-        <div class="game-entry-features">
-          <div class="game-entry-feat"><span class="game-entry-feat-icon">◈</span> Branching Narrative</div>
-          <div class="game-entry-feat"><span class="game-entry-feat-icon">◈</span> Environmental Storytelling</div>
-          <div class="game-entry-feat"><span class="game-entry-feat-icon">◈</span> Original Soundtrack</div>
-          <div class="game-entry-feat"><span class="game-entry-feat-icon">◈</span> Atmospheric Horror</div>
-          <div class="game-entry-feat"><span class="game-entry-feat-icon">◈</span> Puzzle Systems</div>
-          <div class="game-entry-feat"><span class="game-entry-feat-icon">◈</span> Audio-Only Mechanics</div>
-        </div>
+    <!-- CHOOSE YOUR EXPERIENCE -->
+    <div class="reveal" style="margin-top:3rem;">
+      <div class="section-header">
+        <span class="label-gold">Choose Your Experience</span>
+        <div class="rule-gold"></div>
       </div>
     </div>
 
-    <!-- GAME 2 -->
-    <div class="game-entry reveal">
-      <div class="game-entry-banner">
-        <div class="game-entry-banner-bg" style="background-image: url(assets/games/MekAI-banner.png);"></div>
-        <div class="game-entry-banner-overlay"></div>
-        <div class="game-entry-badge status-dev">In Development</div>
-        <div class="game-entry-bg-number">02</div>
+    <div class="game-portal reveal">
+
+      <!-- HourGlass -->
+      <a class="game-portal-entry" href="hourglass.html">
+        <div class="game-portal-bg" style="background-image: url(assets/games/hourglass-banner.png);"></div>
+        <div class="game-portal-overlay"></div>
+        <div class="game-portal-content">
+          <div class="game-portal-status">
+            <span class="game-portal-status-dot"></span>
+            In Development
+          </div>
+          <div class="game-portal-num">01</div>
+          <div class="game-portal-title">HOURGLASS:<br>MISSING TIME</div>
+          <div class="game-portal-type">Narrative Horror · PC</div>
+          <p class="game-portal-desc">A missing sister. Abandoned locations. Something that shouldn't still be running.</p>
+          <span class="game-portal-cta">
+            Enter
+            <span class="game-portal-cta-arrow">→</span>
+          </span>
+        </div>
+      </a>
+
+      <!-- Mek-Ai Archives -->
+      <a class="game-portal-entry" href="mekaiarchives.html">
+        <div class="game-portal-bg" style="background-image: url(assets/games/MekAI-banner.png);"></div>
+        <div class="game-portal-overlay"></div>
+        <div class="game-portal-content">
+          <div class="game-portal-status">
+            <span class="game-portal-status-dot"></span>
+            In Development
+          </div>
+          <div class="game-portal-num">02</div>
+          <div class="game-portal-title">MEK-AI<br>ARCHIVES</div>
+          <div class="game-portal-type">Thriller Horror · Browser</div>
+          <p class="game-portal-desc">Access granted. The system is compromised. Someone is already watching.</p>
+          <span class="game-portal-cta">
+            Access
+            <span class="game-portal-cta-arrow">→</span>
+          </span>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- FUTURE TITLES -->
+    <div class="games-future reveal">
+      <div class="section-header">
+        <span class="label-gold">Future Titles</span>
+        <div class="rule-gold"></div>
       </div>
-      <div class="game-entry-info">
-        <div class="game-entry-name">MEK-AI ARCHIVES</div>
-        <div class="game-entry-type">Thriller Horror · Browser</div>
-        <div class="game-entry-tags">
-          <span class="game-tag">ARG</span>
-          <span class="game-tag">Interactive Fiction</span>
-          <span class="game-tag">Puzzle</span>
-          <span class="game-tag">Browser</span>
+      <div class="games-future-grid">
+
+        <div class="future-card">
+          <div class="future-card-num">03</div>
+          <div class="future-card-label">Planned</div>
+          <div class="future-card-title">HOURGLASS:<br>LOST TIME</div>
+          <p class="future-card-desc">Details withheld. Part of the HourGlass saga.</p>
         </div>
-        <p class="game-entry-desc">Mek-Ai: Archives is a thriller-horror investigation experience developed by MarrowVeil Studios. Players access a compromised Meka Corporation laptop, guided by Ava Keep as they navigate a fractured archive system filled with corrupted files, missing employee records, and hidden communications. Through a fully interactive interface, players restore data, solve system-based puzzles, and unlock deeper clearance levels as the truth behind the network begins to surface.</p>
-        <p class="game-entry-desc">As the investigation progresses, a corporate Fixer begins tracking the breach in real time, turning the experience into a balance between discovery and survival. Using surveillance cameras and environmental awareness, players must continue digging through the system while avoiding detection — because the deeper they go, the closer the Fixer gets.</p>
-        <div class="game-entry-features">
-          <div class="game-entry-feat"><span class="game-entry-feat-icon">◈</span> Multi-Layer Puzzle System</div>
-          <div class="game-entry-feat"><span class="game-entry-feat-icon">◈</span> In-Universe Lore</div>
-          <div class="game-entry-feat"><span class="game-entry-feat-icon">◈</span> ARG Design</div>
-          <div class="game-entry-feat"><span class="game-entry-feat-icon">◈</span> Clearance Progression</div>
-          <div class="game-entry-feat"><span class="game-entry-feat-icon">◈</span> Browser-Based</div>
-          <div class="game-entry-feat"><span class="game-entry-feat-icon">◈</span> Companion to Missing Time</div>
-          <div class="game-entry-feat"><span class="game-entry-feat-icon">◈</span> <a href="https://26nwinters.github.io/Mek-Ai_Archive/" target="_blank" rel="noopener" style="color:var(--dim);text-decoration:none;font-weight:300;font-family:var(--font-body);font-size:0.8rem;">Login</a></div>
+
+        <div class="future-card">
+          <div class="future-card-num">04</div>
+          <div class="future-card-label">Concept</div>
+          <div class="future-card-title">LOST RELICS</div>
+          <p class="future-card-desc">An untitled project within the HourGlass universe. No further details at this time.</p>
         </div>
+
+        <div class="future-card">
+          <div class="future-card-num">—</div>
+          <div class="future-card-label">Unknown</div>
+          <div class="future-card-title">TBA</div>
+          <p class="future-card-desc">MarrowVeil is building. Something is coming.</p>
+        </div>
+
       </div>
     </div>
 
   </div>
-
 
   <div id="footer-placeholder"></div>
   <script src="script.js"></script>
