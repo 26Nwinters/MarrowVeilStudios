@@ -4,10 +4,26 @@
 
       <a class="nav-logo" href="index.html" style="flex-direction:row;align-items:center;gap:0.6rem;text-decoration:none;">
         <img src="assets/logo/logo_extracted_2.png" alt="MarrowVeil Studios" style="height:2.2rem;width:auto;filter:drop-shadow(0 0 6px rgba(255,255,255,0.35));" />
+      </a>
 
       <div class="nav-links">
         <a class="nav-link" href="index.html">Home</a>
-        <a class="nav-link" href="games.html">Games</a>
+
+        <!-- Games dropdown -->
+        <div class="nav-dropdown" id="gamesDropdown">
+          <button class="nav-link nav-dropdown-trigger" aria-expanded="false" aria-haspopup="true">
+            Games
+            <svg class="nav-dropdown-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+            </svg>
+          </button>
+          <div class="nav-dropdown-menu" role="menu">
+            <a class="nav-dropdown-item" href="games.html" role="menuitem">All Games</a>
+            <a class="nav-dropdown-item" href="hourglass.html" role="menuitem">HourGlass</a>
+            <a class="nav-dropdown-item" href="mekaiarchives.html" role="menuitem">Mek-Ai Archives</a>
+          </div>
+        </div>
+
         <a class="nav-link" href="blog.html">Blog</a>
         <a class="nav-link" href="about.html">About</a>
         <a class="nav-link" href="shop.html">Shop</a>
@@ -22,10 +38,26 @@
     </div>
   </div>
 
+  <!-- Mobile menu -->
   <div class="nav-mobile" id="mobile-menu">
     <div class="nav-mobile-inner">
       <a class="nav-link" href="index.html" onclick="closeMobile()">Home</a>
-      <a class="nav-link" href="games.html" onclick="closeMobile()">Games</a>
+
+      <!-- Mobile games accordion -->
+      <div class="nav-mobile-group">
+        <button class="nav-link nav-mobile-group-trigger" aria-expanded="false">
+          Games
+          <svg class="nav-dropdown-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <div class="nav-mobile-group-items">
+          <a class="nav-link nav-mobile-sub" href="games.html" onclick="closeMobile()">All Games</a>
+          <a class="nav-link nav-mobile-sub" href="hourglass.html" onclick="closeMobile()">HourGlass</a>
+          <a class="nav-link nav-mobile-sub" href="mekaiarchives.html" onclick="closeMobile()">Mek-Ai Archives</a>
+        </div>
+      </div>
+
       <a class="nav-link" href="blog.html" onclick="closeMobile()">Blog</a>
       <a class="nav-link" href="about.html" onclick="closeMobile()">About</a>
       <a class="nav-link" href="shop.html" onclick="closeMobile()">Shop</a>
@@ -34,3 +66,130 @@
     </div>
   </div>
 </nav>
+
+<style>
+  /* ── Dropdown ── */
+  .nav-dropdown {
+    position: relative;
+  }
+
+  .nav-dropdown-trigger {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    cursor: pointer;
+  }
+
+  .nav-dropdown-arrow {
+    transition: transform 0.25s ease;
+    opacity: 0.5;
+  }
+
+  .nav-dropdown.open .nav-dropdown-arrow,
+  .nav-mobile-group.open .nav-dropdown-arrow {
+    transform: rotate(180deg);
+    opacity: 1;
+  }
+
+  .nav-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 0.75rem);
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 160px;
+    background: rgba(8,8,16,0.97);
+    border: 1px solid rgba(255,255,255,0.08);
+    backdrop-filter: blur(16px);
+    padding: 0.5rem 0;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-50%) translateY(-6px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  .nav-dropdown.open .nav-dropdown-menu {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .nav-dropdown-item {
+    display: block;
+    padding: 0.6rem 1.25rem;
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    transition: color 0.2s, background 0.2s;
+    white-space: nowrap;
+  }
+
+  .nav-dropdown-item:hover {
+    color: var(--gold);
+    background: rgba(255,255,255,0.03);
+  }
+
+  /* ── Mobile accordion ── */
+  .nav-mobile-group { display: flex; flex-direction: column; }
+
+  .nav-mobile-group-trigger {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    text-align: left;
+  }
+
+  .nav-mobile-group-items {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    padding-left: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .nav-mobile-group.open .nav-mobile-group-items {
+    max-height: 200px;
+    padding-top: 0.75rem;
+  }
+
+  .nav-mobile-sub {
+    font-size: 0.75rem !important;
+    opacity: 0.7;
+  }
+</style>
+
+<script>
+  /* ── Desktop dropdown ── */
+  const gamesDropdown = document.getElementById('gamesDropdown');
+  if (gamesDropdown) {
+    const trigger = gamesDropdown.querySelector('.nav-dropdown-trigger');
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = gamesDropdown.classList.contains('open');
+      document.querySelectorAll('.nav-dropdown').forEach(d => d.classList.remove('open'));
+      if (!isOpen) gamesDropdown.classList.add('open');
+      trigger.setAttribute('aria-expanded', !isOpen);
+    });
+    document.addEventListener('click', () => {
+      gamesDropdown.classList.remove('open');
+      trigger.setAttribute('aria-expanded', false);
+    });
+  }
+
+  /* ── Mobile accordion ── */
+  document.querySelectorAll('.nav-mobile-group-trigger').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const group = btn.closest('.nav-mobile-group');
+      const isOpen = group.classList.contains('open');
+      group.classList.toggle('open', !isOpen);
+      btn.setAttribute('aria-expanded', !isOpen);
+    });
+  });
+</script>
