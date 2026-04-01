@@ -25,7 +25,7 @@
        comes from style.css exactly like your other pages.
     ============================================================ */
 
-    /* Cart badge — injected into nav by shop JS */
+    /* Cart badge */
     .cart-badge {
       display: inline-flex;
       align-items: center;
@@ -64,7 +64,7 @@
       opacity: 0.6;
     }
 
-    /* Stats strip — mirrors games.html stat grid */
+    /* Stats strip */
     .shop-stats {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -145,7 +145,7 @@
       pointer-events: none;
     }
 
-    /* Placeholder thumbnail — same gradient as blog cards */
+    /* Placeholder thumbnail */
     .thumb-ph {
       width: 100%; height: 100%;
       background:
@@ -245,9 +245,9 @@
       overflow: hidden;
       background: var(--bg-dark);
       aspect-ratio: 1 / 1;
-    }  
-      .pcard-img--tall { aspect-ratio: 2 / 3; }
-    
+    }
+    .pcard-img--tall { aspect-ratio: 2 / 3; }
+
     .pcard-img img {
       width: 100%; height: 100%;
       object-fit: cover; display: block;
@@ -353,11 +353,11 @@
       <div class="shop-stats reveal">
         <div class="shop-stat">
           <div class="shop-stat-label">Products</div>
-          <div class="shop-stat-value">8 Active</div>
+          <div class="shop-stat-value">6 Active</div>
         </div>
         <div class="shop-stat">
           <div class="shop-stat-label">Categories</div>
-          <div class="shop-stat-value">5 Types</div>
+          <div class="shop-stat-value">4 Types</div>
         </div>
         <div class="shop-stat">
           <div class="shop-stat-label">Shipping</div>
@@ -382,11 +382,10 @@
 
       <div class="shop-featured">
 
-        <div class="feat-card feat-small">
+        <div class="feat-card feat-hero">
           <div class="feat-img">
-            <img src="assets/home/Nyli_Coverart_H.pngaspect-ratio: 2 / 3;
-      .pcard-img--tall { aspect-ratio: 2 / 3; }
-    }" alt="HourGlass Art Print">
+            <div class="thumb-ph" style="height:100%"><span class="thumb-sym">◈</span></div>
+            <span class="feat-pill">New Arrival</span>
           </div>
           <div class="feat-body">
             <div class="feat-name">HourGlass Art Print — 11×17</div>
@@ -400,13 +399,27 @@
 
         <div class="feat-card feat-small">
           <div class="feat-img">
-            <img src="assets/shop/HG-Vinyl.png" alt="HourGlass Soundtrack Vinyl">
+            <div class="thumb-ph" style="height:100%"><span class="thumb-sym">◈</span></div>
           </div>
           <div class="feat-body">
-            <div class="feat-name">HourGlass Soundtrack - Vinyl</div>
+            <div class="feat-name">HourGlass Soundtrack — Vinyl</div>
             <div class="feat-tag">Side B ends in static for a reason.</div>
             <div class="feat-foot">
               <span class="price">$29.99</span>
+              <button class="btn-gold btn-coming-soon" disabled style="background:transparent;color:var(--dim);border-color:rgba(255,255,255,0.08);opacity:0.6;cursor:default;">Coming Soon</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="feat-card feat-small">
+          <div class="feat-img">
+            <div class="thumb-ph" style="height:100%"><span class="thumb-sym">◈</span></div>
+          </div>
+          <div class="feat-body">
+            <div class="feat-name">MarrowVeil Logo Tee</div>
+            <div class="feat-tag">Where stories take root.</div>
+            <div class="feat-foot">
+              <span class="price">$24.00</span>
               <button class="btn-gold btn-coming-soon" disabled style="background:transparent;color:var(--dim);border-color:rgba(255,255,255,0.08);opacity:0.6;cursor:default;">Coming Soon</button>
             </div>
           </div>
@@ -437,19 +450,19 @@
       <div class="product-grid" id="grid">
 
         <div class="pcard" data-cat="print" data-available="false">
-  <div class=""pcard-img">
-    <img src="assets/home/Nyli_Coverart_H.png" alt="HourGlass Art Print">
-  </div>
-  <div class="pcard-body">
-    <div class="p-name">HourGlass Art Print — 11×17</div>
-    <div class="p-tag">Limited first run. Unframed.</div>
-    <div class="p-foot"><span class="p-price">$18.00</span></div>
-  </div>
-</div>
+          <div class="pcard-img">
+            <div class="thumb-ph"><span class="thumb-sym" style="font-size:3rem">◈</span></div>
+          </div>
+          <div class="pcard-body">
+            <div class="p-name">HourGlass Art Print — 11×17</div>
+            <div class="p-tag">Limited first run. Unframed.</div>
+            <div class="p-foot"><span class="p-price">$18.00</span></div>
+          </div>
+        </div>
 
         <div class="pcard" data-cat="music" data-available="false">
           <div class="pcard-img">
-            <img src="assets/shop/HG-Vinyl.png" alt="HourGlass Soundtrack Vinyl">
+            <div class="thumb-ph"><span class="thumb-sym" style="font-size:3rem">◈</span></div>
             <span class="pcard-chip">New</span>
           </div>
           <div class="pcard-body">
@@ -511,7 +524,6 @@
 
   <div id="footer-placeholder"></div>
 
-  <!-- TOAST -->
   <div class="toast" id="toast">
     Added to cart
     <span class="toast-name" id="toastName"></span>
@@ -519,7 +531,6 @@
 
   <script src="script.js"></script>
   <script>
-    /* ── Build buttons from data-available ── */
     document.querySelectorAll('#grid .pcard').forEach(card => {
       const name      = card.querySelector('.p-name').textContent.trim();
       const available = card.dataset.available === 'true';
@@ -537,7 +548,6 @@
       foot.appendChild(btn);
     });
 
-    /* ── Cart ── */
     let count = 0;
     function addToCart(btn, name) {
       count++;
@@ -570,7 +580,6 @@
       t._tid = setTimeout(() => t.classList.remove('show'), 2800);
     }
 
-    /* ── Filter ── */
     document.querySelectorAll('[data-f]').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('[data-f]').forEach(b => b.classList.remove('active'));
