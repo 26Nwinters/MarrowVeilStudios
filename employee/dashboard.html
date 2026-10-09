@@ -28,21 +28,36 @@
     </header>
     <section class="welcome-row">
       <div><p class="eyebrow">YOUR STUDIO DESK</p><h2 id="welcome-title">Welcome back.</h2><p class="muted">Your projects, assignments, and handoffs in one place.</p></div>
-      <div class="date-chip">TEAM WORKSPACE</div>
+      <div class="date-chip" id="role-chip">TEAM WORKSPACE</div>
     </section>
     <section class="stat-grid" aria-label="Workspace summary">
-      <article class="stat-card"><span class="stat-icon">☷</span><p>Open tasks</p><strong id="open-count">—</strong><small>Assigned to you</small></article>
+      <article class="stat-card"><span class="stat-icon">☷</span><p id="open-label">Open tasks</p><strong id="open-count">—</strong><small id="open-caption">Assigned to you</small></article>
       <article class="stat-card"><span class="stat-icon">↑</span><p>Submissions</p><strong id="submission-count">—</strong><small>Your recent handoffs</small></article>
-      <article class="stat-card"><span class="stat-icon">✓</span><p>Completed</p><strong id="complete-count">—</strong><small>Tasks you've finished</small></article>
+      <article class="stat-card"><span class="stat-icon">✓</span><p>Completed</p><strong id="complete-count">—</strong><small id="complete-caption">Tasks you've finished</small></article>
     </section>
     <section class="content-grid">
       <article class="panel" id="tasks">
-        <div class="panel-heading"><div><p class="eyebrow">YOUR QUEUE</p><h2>My checklist</h2></div><span class="subtle-tag">TASKS</span></div>
-        <div id="task-list" class="empty-state"><span class="empty-mark">☷</span><h3>Tasks will appear here</h3><p>Your assigned work will show up once the task system is connected.</p></div>
+        <div class="panel-heading"><div><p class="eyebrow">YOUR QUEUE</p><h2 id="task-heading">My checklist</h2></div><span class="subtle-tag">TASKS</span></div>
+        <form id="create-task-form" class="task-form" hidden>
+          <h3>Assign a task</h3>
+          <label for="task-title">Task title</label>
+          <input id="task-title" name="title" maxlength="160" required placeholder="e.g. Review Echo dialogue">
+          <label for="task-description">Description</label>
+          <textarea id="task-description" name="description" rows="3" maxlength="4000" placeholder="What needs to be done?"></textarea>
+          <div class="form-two-col">
+            <div><label for="task-project">Project</label><input id="task-project" name="project" maxlength="120" placeholder="e.g. HourGlass"></div>
+            <div><label for="task-due-date">Due date</label><input id="task-due-date" name="due_date" type="date"></div>
+          </div>
+          <label for="task-assignee">Assign to</label>
+          <select id="task-assignee" name="assigned_to"><option value="">Unassigned / shared</option></select>
+          <button class="button button-gold" id="create-task-button" type="submit">Create task</button>
+          <p id="task-form-message" class="form-message" role="status" aria-live="polite"></p>
+        </form>
+        <div id="task-list" class="empty-state"><span class="empty-mark">☷</span><h3>Loading tasks…</h3><p>Your workspace is connecting to the task system.</p></div>
       </article>
       <article class="panel" id="submissions">
         <div class="panel-heading"><div><p class="eyebrow">HANDOFFS</p><h2>File submissions</h2></div><span class="subtle-tag">FILES</span></div>
-        <div class="upload-placeholder"><span class="upload-mark">↑</span><h3>Share work with the studio</h3><p>Scripts, art, audio, and project documents will be submitted here after private storage is configured.</p><span class="status-pill">UPLOADS NOT ENABLED YET</span></div>
+        <div class="upload-placeholder"><span class="upload-mark">↑</span><h3>Share work with the studio</h3><p>File submissions are not connected yet. This section will be enabled after task management is tested.</p><span class="status-pill">COMING NEXT</span></div>
       </article>
     </section>
     <p id="dashboard-message" class="form-message" role="status" aria-live="polite"></p>
