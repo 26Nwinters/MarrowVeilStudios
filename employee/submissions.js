@@ -65,6 +65,9 @@
       const project = item.project ? '<p class="submission-meta">Project: ' + escapeHtml(item.project) + '</p>' : "";
       const notes = item.notes ? '<p class="submission-notes">' + escapeHtml(item.notes) + '</p>' : "";
       const feedback = item.feedback ? '<div class="submission-feedback"><strong>Reviewer feedback</strong><p>' + escapeHtml(item.feedback) + '</p></div>' : "";
+      const deleteControl = isAdmin
+        ? '<button type="button" class="button button-danger submission-delete" data-submission-id="' + escapeHtml(item.id) + '" data-submission-name="' + escapeHtml(item.file_name || "this submission") + '">Delete submission</button><p class="form-message delete-message" role="status" aria-live="polite"></p>'
+        : "";
       const review = isAdmin
         ? '<form class="review-form" data-submission-id="' + escapeHtml(item.id) + '">' +
           '<label>Status<select name="status">' +
@@ -80,8 +83,47 @@
         '<span class="submission-status status-' + escapeHtml(item.status) + '">' + escapeHtml(status) + '</span></div>' +
         project + notes +
         '<button type="button" class="text-link download-submission" data-submission-id="' + escapeHtml(item.id) + '">Open submitted file ↗</button>' +
-        feedback + review + '</article>';
+        feedback + review + deleteControl + '</article>';
     }).join("");
+
+    list.querySelectorAll(".submission-delete").forEach(button => {
+      button.addEventListener("click", async () => {
+        if (!isAdmin) return;
+        const name = button.dataset.submissionName || "this submission";
+        if (!window.confirm('Permanently delete "' + name + '" and its uploaded file? This cannot be undone.')) return;
+        const card = button.closest(".submission-card");
+        const message = card.querySelector(".delete-message");
+        button.disabled = true;
+        button.textContent = "Deleting…";
+
+        const item = submissions.find(row => row.id === button.dataset.submissionId);
+        if (!item) {
+          message.textContent = "Submission could not be found. Refresh and try again.";
+          button.disabled = false;
+          button.textContent = "Delete submission";
+          return;
+        }
+
+        const { error: recordError } = await client.from("submissions")
+          .delete().eq("id", item.id);
+        if (recordError) {
+          message.textContent = "Submission record couldn't be deleted. No file was removed. Check the admin delete policy.";
+          button.disabled = false;
+          button.textContent = "Delete submission";
+          return;
+        }
+
+        const { error: fileError } = await client.storage.from("employee-submissions").remove([item.storage_path]);
+        if (fileError) {
+          message.textContent = "Submission record deleted, but its private file couldn't be removed. Ask the administrator to check Storage cleanup.";
+          button.disabled = false;
+          button.textContent = "Delete submission";
+          await loadSubmissions();
+          return;
+        }
+        await loadSubmissions();
+      });
+    });
 
     list.querySelectorAll(".download-submission").forEach(button => {
       button.addEventListener("click", async () => {
