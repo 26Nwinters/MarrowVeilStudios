@@ -12,7 +12,7 @@
   function say(text, target = message) { target.textContent = text || ""; }
   function snapshot() { return { title:$("post-title").value.trim(), slug:$("post-slug").value.trim(), excerpt:$("post-excerpt").value.trim(), category:$("post-category").value, seo_title:$("post-seo-title").value.trim(), seo_description:$("post-seo-description").value.trim(), cover_image:safeUrl($("post-cover").value), cover_alt:$("post-cover-alt").value.trim(), blocks:JSON.parse(JSON.stringify(blocks)) }; }
   function clearForm() {
-    selectedId = null; form.reset(); $("post-id").value = ""; blocks = [];
+    selectedId = null; form.reset(); $("post-slug").dataset.touched = "false"; $("post-id").value = ""; blocks = [];
     $("editor-title").textContent = "New article"; $("editor-status").textContent = "UNSAVED"; $("post-preview").hidden = true;
     $("editor-message").textContent = ""; renderBlocks(); renderPosts();
   }
