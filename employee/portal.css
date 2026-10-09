@@ -24,3 +24,33 @@
 .status-control{display:block;color:var(--muted);font-size:.74rem;margin-top:14px}
 .status-control select{margin-top:6px}
 @media(max-width:620px){.form-two-col{grid-template-columns:1fr}.task-card-top{flex-direction:column}}
+
+/* Employee file submissions and admin review */
+.submission-form{padding:20px 0;border-bottom:1px solid var(--line);margin-bottom:8px}
+.submission-form h3{font:1.35rem var(--display);margin:0 0 8px}
+.submission-help{color:var(--muted);font-size:.78rem;margin-bottom:12px}
+.submission-form label,.review-form label{display:block;color:#d6d3cc;font-size:.78rem;margin:13px 0 7px}
+.submission-form input,.submission-form textarea,.review-form textarea,.review-form select{width:100%;padding:11px 12px;background:#0a0a11;border:1px solid #33323d;color:var(--cream);font:inherit;font-size:.84rem;border-radius:0}
+.submission-form input[type=file]{font-size:.76rem}
+.submission-form input:focus,.submission-form textarea:focus,.review-form textarea:focus,.review-form select:focus{outline:1px solid var(--gold);border-color:var(--gold)}
+.submission-form textarea,.review-form textarea{resize:vertical}
+.submission-form .button{margin-top:14px}
+.submission-list{display:grid;gap:12px;padding-top:18px}
+.submission-card{padding:17px;background:var(--panel2);border:1px solid var(--line);min-width:0}
+.submission-card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.submission-card h3{font:1.2rem var(--display);letter-spacing:.025em;margin:0;overflow-wrap:anywhere}
+.submission-meta{color:var(--dim);font-size:.7rem;margin:7px 0 0;overflow-wrap:anywhere}
+.submission-notes{color:var(--muted);font-size:.82rem;white-space:pre-wrap;overflow-wrap:anywhere;margin:12px 0}
+.submission-status{display:inline-block;font-size:.6rem;letter-spacing:.06em;padding:6px 8px;border:1px solid var(--line);color:var(--muted);white-space:normal;text-align:center}
+.submission-status.status-approved{color:var(--green);border-color:rgba(139,155,123,.35)}
+.submission-status.status-revision_requested{color:var(--gold);border-color:rgba(201,166,107,.35)}
+.submission-status.status-pending{color:var(--muted)}
+.text-link{display:inline-block;border:0;background:transparent;color:var(--gold);font:600 .75rem var(--body);padding:12px 0 2px;text-decoration:underline;text-underline-offset:3px;overflow-wrap:anywhere}
+.text-link:disabled{opacity:.6;cursor:wait}
+.submission-feedback{margin-top:14px;padding:12px;border-left:2px solid var(--gold);background:rgba(201,166,107,.06)}
+.submission-feedback strong{font-size:.73rem;color:var(--gold)}
+.submission-feedback p{font-size:.8rem;color:var(--muted);white-space:pre-wrap;overflow-wrap:anywhere;margin:5px 0 0}
+.review-form{margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+.review-form .button{margin-top:12px}
+.review-message{margin:8px 0 0}
+@media(max-width:620px){.submission-card-top{flex-direction:column;gap:8px}.submission-status{align-self:flex-start}}
