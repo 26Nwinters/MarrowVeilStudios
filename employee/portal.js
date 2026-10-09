@@ -131,10 +131,11 @@
       row.task_id + ":" + row.user_id, row.status
     ]));
     const employeeById = new Map(employeeProfiles.map(person => [person.id, person.display_name || "Employee"]));
-    const ownStatuses = visibleTasks.map(task => progressByTask.get(task.id + ":" + currentUser.id));
-    const openCount = visibleTasks.filter((task, index) =>
-      (ownStatuses[index] || "todo") !== "completed"
-    ).length;
+    const statusForCount = task => {
+      const progressUser = isAdmin ? (task.assigned_to || currentUser.id) : currentUser.id;
+      return progressByTask.get(task.id + ":" + progressUser) || "todo";
+    };
+    const openCount = visibleTasks.filter(task => statusForCount(task) !== "completed").length;
     const completeCount = visibleTasks.length - openCount;
     document.getElementById("open-count").textContent = String(openCount);
     document.getElementById("complete-count").textContent = String(completeCount);
