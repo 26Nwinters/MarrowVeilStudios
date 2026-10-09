@@ -169,7 +169,7 @@
         : "";
       return '<article class="task-card"><div class="task-card-top"><h3>' + escapeHtml(task.title) + "</h3>" + project + "</div>" +
         description + '<p class="task-meta">Due: ' + escapeHtml(due) + "</p>" + assignment + adminStatus +
-        (controls || "") + deleteControl + '<p class="form-message delete-message" role="status" aria-live="polite"></p></article>";
+      (controls || "") + deleteControl + '<p class="form-message delete-message" role="status" aria-live="polite"></p></article>';
     }).join("");
 
     taskList.querySelectorAll(".task-delete").forEach(button => {
