@@ -121,9 +121,6 @@
           return;
         }
         await loadSubmissions();
-          return;
-        }
-        await loadSubmissions();
       });
     });
 
