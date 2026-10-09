@@ -80,6 +80,8 @@
       return;
     }
     isAdmin = profile?.role === "admin";
+    const cmsNavLink = document.getElementById("cms-nav-link");
+    if (cmsNavLink && isAdmin) cmsNavLink.hidden = false;
     const welcome = document.getElementById("welcome-title");
     const displayName = profile?.display_name || currentUser.user_metadata?.display_name;
     if (welcome) welcome.textContent = displayName ? `Welcome back, ${displayName}.` : "Welcome back.";
