@@ -57,7 +57,19 @@
       </article>
       <article class="panel" id="submissions">
         <div class="panel-heading"><div><p class="eyebrow">HANDOFFS</p><h2>File submissions</h2></div><span class="subtle-tag">FILES</span></div>
-        <div class="upload-placeholder"><span class="upload-mark">↑</span><h3>Share work with the studio</h3><p>File submissions are not connected yet. This section will be enabled after task management is tested.</p><span class="status-pill">COMING NEXT</span></div>
+        <form id="submission-form" class="submission-form">
+          <h3>Submit work</h3>
+          <p class="submission-help">Upload a file for studio review. Maximum file size: 25 MB.</p>
+          <label for="submission-file">File</label>
+          <input id="submission-file" name="file" type="file" required>
+          <label for="submission-project">Project</label>
+          <input id="submission-project" name="project" maxlength="120" placeholder="e.g. HourGlass">
+          <label for="submission-notes">Notes for the reviewer</label>
+          <textarea id="submission-notes" name="notes" rows="3" maxlength="3000" placeholder="What should the team know about this handoff?"></textarea>
+          <button class="button button-gold" id="submission-button" type="submit">Upload submission</button>
+          <p id="submission-form-message" class="form-message" role="status" aria-live="polite"></p>
+        </form>
+        <div id="submission-list" class="submission-list" aria-live="polite"><div class="empty-state"><h3>Loading submissions…</h3><p>Your recent handoffs will appear here.</p></div></div>
       </article>
     </section>
     <p id="dashboard-message" class="form-message" role="status" aria-live="polite"></p>
@@ -66,5 +78,6 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="config.js"></script>
   <script src="portal.js"></script>
+  <script src="submissions.js"></script>
 </body>
 </html>
