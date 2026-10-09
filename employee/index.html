@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#080810">
+  <title>Employee Login | MarrowVeil Studios</title>
+  <link rel="icon" type="image/png" href="../favicon_blogo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="portal.css">
+</head>
+<body class="login-page">
+  <main class="login-shell">
+    <a class="wordmark" href="../index.html" aria-label="MarrowVeil Studios home">
+      <span class="mark">M</span><span>MARROWVEIL <small>STUDIOS</small></span>
+    </a>
+    <section class="login-card" aria-labelledby="login-title">
+      <p class="eyebrow">INTERNAL WORKSPACE</p>
+      <h1 id="login-title">Employee Portal</h1>
+      <p class="muted intro">A quiet place to keep the work moving.</p>
+      <form id="login-form">
+        <label for="email">Studio email</label>
+        <input id="email" name="email" type="email" autocomplete="username" placeholder="you@example.com" required>
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" placeholder="Your password" required>
+        <button class="button button-gold" type="submit" id="login-button">Sign in</button>
+        <p id="login-message" class="form-message" role="status" aria-live="polite"></p>
+      </form>
+      <p class="help-note">Access is for invited team members only. Need access? Contact the studio administrator.</p>
+    </section>
+    <footer>MARROWVEIL STUDIOS <span>·</span> WHERE STORIES TAKE ROOT</footer>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="portal.js"></script>
+</body>
+</html>
