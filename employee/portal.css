@@ -154,3 +154,9 @@ h1,h2,h3{line-height:1.15}
 }
 @media(max-width:380px){.sidebar>a.side-link{font-size:.63rem;padding:7px}.stat-card small{display:none}.stat-card strong{font-size:1.8rem}.topbar h1{font-size:2.1rem}.topbar .button{letter-spacing:.04em}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+
+/* Admin-only destructive actions */
+.button-danger{display:inline-flex;align-items:center;justify-content:center;min-height:35px;margin-top:13px;padding:8px 11px;border:1px solid rgba(190,105,91,.38);background:rgba(130,49,39,.10);color:#d9a096;font:600 .62rem var(--body);letter-spacing:.08em;text-transform:uppercase;transition:background .2s,border-color .2s}
+.button-danger:hover{background:rgba(130,49,39,.2);border-color:rgba(210,125,109,.65)}
+.button-danger:disabled{opacity:.55;cursor:wait}
+.delete-message{color:#d9a096}
