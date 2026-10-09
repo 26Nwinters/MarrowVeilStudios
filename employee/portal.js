@@ -164,10 +164,34 @@
           '<option value="in_progress"' + (status === "in_progress" ? " selected" : "") + '>In progress</option>' +
           '<option value="completed"' + (status === "completed" ? " selected" : "") + '>Completed</option></select></label>'
         : (isAdmin && task.assigned_to === currentUser.id ? "" : "");
+      const deleteControl = isAdmin
+        ? '<button type="button" class="button button-danger task-delete" data-task-id="' + escapeHtml(task.id) + '" data-task-title="' + escapeHtml(task.title) + '">Delete task</button>'
+        : "";
       return '<article class="task-card"><div class="task-card-top"><h3>' + escapeHtml(task.title) + "</h3>" + project + "</div>" +
         description + '<p class="task-meta">Due: ' + escapeHtml(due) + "</p>" + assignment + adminStatus +
-        (controls || (!isAdmin ? "" : "")) + "</article>";
+        (controls || "") + deleteControl + '<p class="form-message delete-message" role="status" aria-live="polite"></p></article>";
     }).join("");
+
+    taskList.querySelectorAll(".task-delete").forEach(button => {
+      button.addEventListener("click", async () => {
+        if (!isAdmin) return;
+        const title = button.dataset.taskTitle || "this task";
+        if (!window.confirm('Permanently delete "' + title + '"? This cannot be undone.')) return;
+        const card = button.closest(".task-card");
+        const message = card.querySelector(".delete-message");
+        button.disabled = true;
+        button.textContent = "Deleting…";
+        const { error } = await client.from("tasks").delete().eq("id", button.dataset.taskId);
+        if (error) {
+          button.disabled = false;
+          button.textContent = "Delete task";
+          message.textContent = "Task couldn't be deleted. The database may have a related progress record or policy preventing deletion.";
+          return;
+        }
+        dashboardMessage.textContent = "Task deleted.";
+        await loadTasks();
+      });
+    });
 
     taskList.querySelectorAll(".task-status").forEach(select => {
       select.addEventListener("change", async () => {
