@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#080810">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Article | MarrowVeil Studios">
+  <meta property="og:description" content="Development updates and studio stories from MarrowVeil Studios.">
+  <meta property="og:url" content="https://marrowveilstudios.com/article.html">
+  <meta property="og:image" content="https://marrowveilstudios.com/hero-forest.jpg">
+  <link rel="icon" type="image/png" href="favicon_blogo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <title>Article | MarrowVeil Studios</title>
+  <meta name="description" content="Development updates and studio stories from MarrowVeil Studios.">
+  <link rel="canonical" href="https://marrowveilstudios.com/article.html">
+  <style>
+    .article-shell{max-width:850px;margin:0 auto;padding:4rem 22px 7rem}
+    .article-back{display:inline-block;color:var(--gold,#c9aa73);margin-bottom:2rem;text-decoration:none}
+    .article-kicker{font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold,#c9aa73)}
+    .article-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.8rem,8vw,5.8rem);line-height:.98;margin:.7rem 0 1rem;overflow-wrap:anywhere}
+    .article-excerpt{font-size:1.15rem;line-height:1.8;opacity:.82;max-width:700px}
+    .article-date{font-size:.78rem;opacity:.65;margin:1.2rem 0 2rem}
+    .article-cover{display:block;width:100%;max-height:540px;object-fit:cover;margin:2rem 0 3rem}
+    .article-content{font-size:1.04rem;line-height:1.9;overflow-wrap:anywhere}
+    .article-content h2,.article-content h3{font-family:'Bebas Neue',sans-serif;line-height:1.1;margin:2.4rem 0 .8rem}
+    .article-content p{white-space:pre-wrap;margin:0 0 1.4rem}
+    .article-content blockquote{margin:2rem 0;padding:.5rem 1.3rem;border-left:2px solid var(--gold,#c9aa73);opacity:.88}
+    .article-content figure{margin:2.3rem 0}
+    .article-content figure img{width:100%;height:auto;max-height:600px;object-fit:contain}
+    .article-content figcaption{font-size:.8rem;opacity:.7;margin-top:.6rem}
+    .article-content a{color:var(--gold,#c9aa73);text-decoration:underline;text-underline-offset:4px}
+    .article-video{position:relative;aspect-ratio:16/9;margin:2rem 0}
+    .article-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+    .article-state{padding:3rem 0;color:inherit;opacity:.8}
+  </style>
+</head>
+<body>
+  <div id="nav-placeholder"></div>
+  <main class="article-shell">
+    <a class="article-back" href="blog.html">← Back to the Devlog</a>
+    <article id="article-content" class="article-state" aria-live="polite">Loading article…</article>
+  </main>
+  <div id="footer-placeholder"></div>
+  <script src="script.js"></script>
+  <script src="employee/config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="article.js"></script>
+</body>
+</html>
