@@ -7,7 +7,7 @@
   const form = $("post-form"), list = $("post-list"), blocksHost = $("block-list");
   let user = null, posts = [], blocks = [], selectedId = null;
   const escapeHtml = value => String(value ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-  const safeUrl = value => { try { const u = new URL(value, location.origin); return ["https:","http:"].includes(u.protocol) ? u.href : ""; } catch { return ""; } };
+  const safeUrl = value => { if (!String(value || "").trim()) return ""; try { const u = new URL(value); return ["https:","http:"].includes(u.protocol) ? u.href : ""; } catch { return ""; } };
   const slugify = value => String(value || "").normalize("NFKD").toLowerCase().replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"").slice(0,180);
   function say(text, target = message) { target.textContent = text || ""; }
   function snapshot() { return { title:$("post-title").value.trim(), slug:$("post-slug").value.trim(), excerpt:$("post-excerpt").value.trim(), category:$("post-category").value, seo_title:$("post-seo-title").value.trim(), seo_description:$("post-seo-description").value.trim(), cover_image:safeUrl($("post-cover").value), cover_alt:$("post-cover-alt").value.trim(), blocks:JSON.parse(JSON.stringify(blocks)) }; }
