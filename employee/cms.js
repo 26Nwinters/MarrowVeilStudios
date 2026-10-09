@@ -26,7 +26,7 @@
     if (block.type === "heading") return textarea("text","Heading text","Section heading")+'<label>Heading size</label><select data-index="'+index+'" data-field="level"><option value="2" '+(Number(block.level)===2?"selected":"")+'>Large heading</option><option value="3" '+(Number(block.level)===3?"selected":"")+'>Small heading</option></select>';
     if (block.type === "text") return textarea("text","Paragraph text","Write your paragraph here…");
     if (block.type === "quote") return textarea("text","Quote","Quote text")+input("attribution","Attribution","Name or source");
-    if (block.type === "image") return input("url","Image URL","https://…","url")+input("alt","Alternative text","Describe the image")+input("caption","Caption","Optional caption");
+    if (block.type === "image") return input("url","Image URL","https://…","url")+'<label>Or upload image</label><input type="file" accept="image/jpeg,image/png,image/webp,image/gif" data-upload-index="'+index+'"><p class="field-help">Maximum 10 MB. Images are stored in the CMS media bucket.</p>'+input("alt","Alternative text","Describe the image")+input("caption","Caption","Optional caption");
     if (block.type === "video") return input("url","YouTube URL","https://www.youtube.com/watch?v=…","url")+input("caption","Caption","Optional caption");
     return input("label","Link label","Read more")+input("url","Destination URL","https://…","url");
   }
@@ -36,6 +36,11 @@
     blocksHost.querySelectorAll("[data-index][data-field]").forEach(el => el.addEventListener("input", () => {
       const i=Number(el.dataset.index), field=el.dataset.field; if(!blocks[i]) return;
       blocks[i][field]=field==="level"?Number(el.value):el.value;
+    }));
+    blocksHost.querySelectorAll("[data-upload-index]").forEach(input => input.addEventListener("change", async () => {
+      const file=input.files?.[0]; if(!file)return; const index=Number(input.dataset.uploadIndex); input.disabled=true;
+      try { const url=await uploadImage(file); if(blocks[index]){blocks[index].url=url;renderBlocks();say("Image uploaded.",$("editor-message"));} }
+      catch(error){console.error("CMS image upload failed",error);say("Image upload failed. Check file type, size, and Storage permissions.",$("editor-message"));input.disabled=false;}
     }));
     blocksHost.querySelectorAll("[data-move]").forEach(btn => btn.addEventListener("click", () => {
       const i=Number(btn.dataset.index), j=i+Number(btn.dataset.move); if(j<0||j>=blocks.length)return;
@@ -53,6 +58,23 @@
     list.querySelectorAll("[data-archive]").forEach(btn=>btn.addEventListener("click",()=>archivePost(btn.dataset.archive)));
     list.querySelectorAll("[data-delete]").forEach(btn=>btn.addEventListener("click",()=>deletePost(btn.dataset.delete)));
   }
+  async function uploadImage(file) {
+    const allowed=["image/jpeg","image/png","image/webp","image/gif"];
+    if(!allowed.includes(file.type)||file.size>10*1024*1024)throw new Error("Unsupported image or file exceeds 10 MB");
+    const path=user.id+"/"+Date.now()+"-"+slugify(file.name||"image");
+    const {error}=await client.storage.from("cms-media").upload(path,file,{contentType:file.type,upsert:false});
+    if(error)throw error;
+    const {data}=client.storage.from("cms-media").getPublicUrl(path);
+    if(!data?.publicUrl)throw new Error("Public URL unavailable");
+    return data.publicUrl;
+  }
+  $("cover-upload").addEventListener("change",async()=>{
+    const file=$("cover-upload").files?.[0];if(!file)return;
+    const input=$("cover-upload");input.disabled=true;
+    try{$("post-cover").value=await uploadImage(file);say("Cover image uploaded.",$("editor-message"));}
+    catch(error){console.error("CMS cover upload failed",error);say("Cover upload failed. Check file type, size, and Storage permissions.",$("editor-message"));}
+    finally{input.disabled=false;}
+  });
   async function loadPosts() {
     const {data,error}=await client.from("cms_posts").select("*").order("updated_at",{ascending:false});
     if(error){say("CMS tables are not ready or your admin permissions could not be verified. Apply the CMS SQL migration and try again.");list.innerHTML='<div class="empty-state"><h3>Could not load content</h3><p>Apply the CMS migration from the repository SQL folder, then refresh.</p></div>';return;}
