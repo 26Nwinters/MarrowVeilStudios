@@ -44,7 +44,7 @@ create index if not exists cms_posts_updated_idx
 create table if not exists public.cms_post_versions (
   id uuid primary key default gen_random_uuid(),
   post_id uuid not null references public.cms_posts(id) on delete cascade,
-  version_number integer not null,
+  version_number bigint not null,
   snapshot jsonb not null,
   changed_by uuid references auth.users(id) on delete set null default auth.uid(),
   created_at timestamptz not null default now(),
