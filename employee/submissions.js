@@ -104,32 +104,23 @@
           return;
         }
 
-        const { error: recordError } = await client.from("submissions")
-          .delete().eq("id", item.id);
-        
-if (recordError) {
-  console.error("Submission deletion failed:", {
-    message: recordError.message,
-    code: recordError.code,
-    details: recordError.details,
-    hint: recordError.hint
-  });
-
-  message.textContent =
-    "Deletion failed: " + recordError.message +
-    (recordError.code ? " (code " + recordError.code + ")" : "");
-
-  button.disabled = false;
-  button.textContent = "Delete submission";
-  return;
-}
-
         const { error: fileError } = await client.storage.from("employee-submissions").remove([item.storage_path]);
         if (fileError) {
-          message.textContent = "Submission record deleted, but its private file couldn't be removed. Ask the administrator to check Storage cleanup.";
+          message.textContent = "The private file couldn't be removed. The submission record was kept so the administrator can fix permissions and retry.";
           button.disabled = false;
           button.textContent = "Delete submission";
-          await loadSubmissions();
+          return;
+        }
+
+        const { error: recordError } = await client.from("submissions").delete().eq("id", item.id);
+        if (recordError) {
+          console.error("Submission record deletion failed after file removal:", recordError);
+          message.textContent = "The file was removed, but its submission record couldn't be deleted. Contact the administrator to reconcile this submission.";
+          button.disabled = false;
+          button.textContent = "Delete submission";
+          return;
+        }
+        await loadSubmissions();
           return;
         }
         await loadSubmissions();
@@ -242,7 +233,13 @@ if (recordError) {
     });
 
     if (insertError) {
-      message.textContent = "The file uploaded, but its submission record couldn't be saved. Please contact the administrator before uploading it again.";
+      const { error: cleanupError } = await client.storage.from("employee-submissions").remove([storagePath]);
+      if (cleanupError) {
+        console.error("Uploaded file cleanup failed after record insert error:", cleanupError);
+        message.textContent = "The submission record couldn't be saved and the uploaded file couldn't be cleaned up. Contact the administrator and share this filename: " + file.name;
+      } else {
+        message.textContent = "The submission record couldn't be saved. The uploaded file was removed; please try again.";
+      }
       button.disabled = false;
       button.textContent = "Upload submission";
       return;
