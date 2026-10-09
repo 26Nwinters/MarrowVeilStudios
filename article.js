@@ -23,6 +23,8 @@
     const desc=p.seo_description||p.excerpt;
     document.querySelector('meta[name="description"]')?.setAttribute("content",desc);
     document.querySelector('meta[property="og:title"]')?.setAttribute("content",p.seo_title||p.title);
+    document.querySelector('meta[property="og:url"]')?.setAttribute("content",location.href);
+    const canonical=document.querySelector('link[rel="canonical"]'); if(canonical)canonical.href=location.href;
     document.querySelector('meta[property="og:description"]')?.setAttribute("content",desc);
     if(p.cover_image)document.querySelector('meta[property="og:image"]')?.setAttribute("content",p.cover_image);
     host.className="article-content";
