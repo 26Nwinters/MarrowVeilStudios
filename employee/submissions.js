@@ -106,12 +106,23 @@
 
         const { error: recordError } = await client.from("submissions")
           .delete().eq("id", item.id);
-        if (recordError) {
-          message.textContent = "Submission record couldn't be deleted. No file was removed. Check the admin delete policy.";
-          button.disabled = false;
-          button.textContent = "Delete submission";
-          return;
-        }
+        
+if (recordError) {
+  console.error("Submission deletion failed:", {
+    message: recordError.message,
+    code: recordError.code,
+    details: recordError.details,
+    hint: recordError.hint
+  });
+
+  message.textContent =
+    "Deletion failed: " + recordError.message +
+    (recordError.code ? " (code " + recordError.code + ")" : "");
+
+  button.disabled = false;
+  button.textContent = "Delete submission";
+  return;
+}
 
         const { error: fileError } = await client.storage.from("employee-submissions").remove([item.storage_path]);
         if (fileError) {
