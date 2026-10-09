@@ -586,16 +586,7 @@
         btn.classList.add('active');
         const f = btn.dataset.f;
         document.querySelectorAll('#grid .pcard').forEach(c => {
-          c.style.display = (f === 'all' || c.dataset.cat === f) ? '' : 'none';
-
-        }
-
-      .feat-img-contain {
-  object-fit: contain;
-  padding: 1.5rem;
-  background: #0a0a12;
-}
-        
+          c.hidden = !(f === 'all' || c.dataset.cat === f);
         });
       });
     });
