@@ -1,0 +1,159 @@
+/* MarrowVeil employee portal visual refresh
+   Intent: richer forest-green surfaces, antique gold accents, warm readable text. */
+:root {
+  --bg: #071811;
+  --bg-soft: #0a2017;
+  --panel: #10281d;
+  --panel-raised: #143324;
+  --panel-hover: #1b3d2c;
+  --cream: #f3efe4;
+  --muted: #bdc9bb;
+  --dim: #91a191;
+  --gold: #d2b174;
+  --gold-bright: #ecd39c;
+  --gold-soft: rgba(210, 177, 116, .12);
+  --green: #a9c7a5;
+  --line: rgba(204, 220, 202, .14);
+  --line-strong: rgba(210, 177, 116, .36);
+  --shadow: 0 26px 80px rgba(0, 0, 0, .32);
+}
+body {
+  background:
+    radial-gradient(ellipse at 78% 0%, rgba(61, 111, 74, .24), transparent 40%),
+    radial-gradient(ellipse at 4% 78%, rgba(31, 76, 52, .13), transparent 34%),
+    var(--bg);
+}
+body:before {
+  opacity: .08;
+  background-image: radial-gradient(rgba(229, 218, 186, .22) .5px, transparent .5px);
+}
+.login-page {
+  background:
+    radial-gradient(ellipse at 50% 30%, rgba(49, 100, 63, .30), transparent 49%),
+    linear-gradient(135deg, #06150f, #0d281c 52%, #071811);
+}
+.login-card, .stat-card, .panel {
+  background: linear-gradient(145deg, rgba(17, 43, 30, .97), rgba(10, 31, 21, .98));
+  border-color: var(--line);
+  border-radius: 9px;
+}
+.login-card {
+  border-color: var(--line-strong);
+}
+.login-card:before {
+  left: 30px;
+  width: 92px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold-bright), var(--gold), transparent);
+}
+.button {
+  border-radius: 4px;
+  letter-spacing: .08em;
+}
+.button-gold {
+  box-shadow: 0 5px 18px rgba(210, 177, 116, .10);
+}
+.button-gold:hover {
+  box-shadow: 0 7px 24px rgba(210, 177, 116, .17);
+}
+.sidebar {
+  background: rgba(5, 21, 14, .97);
+  border-right-color: rgba(210, 177, 116, .18);
+}
+.sidebar .wordmark {
+  margin-bottom: 49px;
+}
+.side-link {
+  border-radius: 6px;
+}
+.side-link:hover, .side-link.active {
+  background: linear-gradient(90deg, rgba(210, 177, 116, .13), rgba(43, 86, 58, .20));
+  border-color: rgba(210, 177, 116, .22);
+}
+.workspace-main {
+  background: radial-gradient(ellipse at 50% 0%, rgba(31, 70, 45, .10), transparent 46%);
+}
+.topbar {
+  border-bottom-color: rgba(210, 177, 116, .20);
+}
+.date-chip, .subtle-tag {
+  border-radius: 4px;
+  background: rgba(210, 177, 116, .09);
+}
+.stat-card {
+  background: linear-gradient(145deg, rgba(19, 48, 33, .98), rgba(12, 35, 23, .98));
+  border-color: rgba(190, 214, 186, .15);
+  border-radius: 9px;
+}
+.stat-card:after {
+  border-color: rgba(210, 177, 116, .12);
+  box-shadow: 0 0 0 12px rgba(210, 177, 116, .025), 0 0 0 26px rgba(120, 164, 119, .025);
+}
+.stat-icon, .empty-mark, .upload-mark {
+  border-radius: 7px;
+  background: rgba(210, 177, 116, .09);
+  border-color: rgba(210, 177, 116, .28);
+}
+.panel {
+  border-color: rgba(190, 214, 186, .15);
+}
+.panel-heading {
+  border-bottom-color: rgba(210, 177, 116, .18);
+}
+.task-card, .submission-card, .cms-post-item {
+  background: linear-gradient(135deg, rgba(22, 53, 36, .82), rgba(13, 37, 25, .86));
+  border-color: rgba(190, 214, 186, .14);
+  border-radius: 7px;
+}
+.task-card:hover, .submission-card:hover {
+  background: linear-gradient(135deg, rgba(28, 65, 43, .94), rgba(17, 45, 30, .96));
+  border-color: rgba(210, 177, 116, .32);
+}
+.task-project {
+  background: rgba(210, 177, 116, .06);
+  border-radius: 3px;
+}
+.login-card input, .task-form input, .task-form textarea, .task-form select,
+.status-control select, .submission-form input, .submission-form textarea,
+.review-form textarea, .review-form select, .cms-list-controls input,
+.cms-list-controls select, .cms-form input:not([type=hidden]),
+.cms-form textarea, .cms-form select {
+  background: #081c13;
+  border-color: rgba(190, 214, 186, .20);
+  border-radius: 5px;
+}
+.login-card input:focus, .task-form input:focus, .task-form textarea:focus,
+.task-form select:focus, .status-control select:focus, .submission-form input:focus,
+.submission-form textarea:focus, .review-form textarea:focus, .review-form select:focus,
+.cms-form input:focus, .cms-form textarea:focus, .cms-form select:focus,
+.cms-list-controls input:focus, .cms-list-controls select:focus {
+  background: #0c281b;
+  border-color: var(--gold);
+}
+.submission-form input[type=file]::file-selector-button {
+  background: #183b29;
+  border-radius: 3px;
+}
+.submission-feedback {
+  background: rgba(210, 177, 116, .07);
+  border-radius: 0 5px 5px 0;
+}
+.cms-block {
+  background: rgba(7, 25, 16, .62);
+  border-radius: 6px;
+}
+.cms-post-item.active {
+  background: linear-gradient(120deg, rgba(210, 177, 116, .12), rgba(32, 73, 47, .35));
+}
+.cms-preview {
+  background: #091d14;
+  border-radius: 6px;
+}
+.status-pill, .submission-status {
+  border-radius: 4px;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .button, .side-link, .task-card, .submission-card, .cms-post-item {
+    transition-duration: .22s;
+  }
+}
