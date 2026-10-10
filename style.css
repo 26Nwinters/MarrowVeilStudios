@@ -37,6 +37,19 @@ body {
 }
 a { text-decoration: none; color: inherit; }
 img { display: block; max-width: 100%; }
+
+/* Accessible text that remains available to screen readers */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
 button { cursor: pointer; border: none; background: none; font: inherit; color: inherit; }
 
 /* ============================================================
