@@ -1,0 +1,22 @@
+{
+  "ci": {
+    "collect": {
+      "numberOfRuns": 1,
+      "url": [
+        "http://127.0.0.1:8765/",
+        "http://127.0.0.1:8765/hourglass/",
+        "http://127.0.0.1:8765/mekaiarchives/",
+        "http://127.0.0.1:8765/articles/every-story-takes-root-somewhere/"
+      ],
+      "settings": {
+        "chromeFlags": "--no-sandbox --disable-dev-shm-usage",
+        "onlyCategories": [
+          "performance",
+          "accessibility",
+          "best-practices",
+          "seo"
+        ]
+      }
+    }
+  }
+}
