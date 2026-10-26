@@ -35,6 +35,7 @@
     if(featured){
       featured.dataset.category=first.category;
       featured.hidden=false;
+      featured.classList.add("revealed");
       featured.innerHTML='<a class="blog-featured-thumb" href="'+articleHref(first.slug)+'">'+(first.cover_image?'<img src="'+esc(first.cover_image)+'" alt="'+esc(first.cover_alt||first.title+' cover art')+'" style="width:100%;height:100%;object-fit:cover">':'<div class="thumb-placeholder"><span class="thumb-symbol">◈</span></div>')+'</a><div class="blog-featured-body"><div><div class="blog-featured-tag" style="margin-bottom:1.25rem"><span class="blog-tag">'+esc(first.category)+'</span><span class="blog-featured-label">Latest</span></div><h2 class="blog-card-title"><a href="'+articleHref(first.slug)+'">'+esc(first.title)+'</a></h2><p class="blog-card-excerpt">'+esc(first.excerpt)+'</p></div><div class="blog-card-footer"><span class="blog-card-date">'+esc(date(first.published_at))+'</span><a class="blog-card-read" href="'+articleHref(first.slug)+'">Read article ↗</a></div></div>';
     }
     grid.innerHTML=posts.slice(1).map(card).join("");
