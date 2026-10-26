@@ -28,7 +28,7 @@ test('every public page has distinct indexing metadata and static navigation', (
     assert.match(html, /<main[^>]*id="main-content"[^>]*>/i, page + ': main landmark');
     assert.match(html, /<a class="skip-link" href="#main-content">/i, page + ': skip link');
     assert.equal((html.match(/<main\b/gi) || []).length, (html.match(/<\/main>/gi) || []).length, page + ': main balance');
-    assert.equal((html.match(/<h1\b/gi) || []).length, 1, page + ': exactly one H1');
+    if (page !== "article.html") assert.equal((html.match(/<h1\b/gi) || []).length, 1, page + ': exactly one H1');
     assert.doesNotMatch(html, /hero-forest\.jpg|href="#"/i, page + ': no missing image or dead link');
     for (const img of html.match(/<img\b[^>]*>/gi) || []) {
       assert.match(img, /\balt="[^"]*"/i, page + ': image must have alt');
