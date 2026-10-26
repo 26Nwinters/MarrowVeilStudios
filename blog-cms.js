@@ -1,51 +1,98 @@
+// Published cards are present in the HTML for search engines and visitors.
+// Enhance that listing without replacing or moving any existing card.
 (() => {
-  const grid=document.querySelector(".blog-grid"), count=document.querySelector(".blog-count"), featured=document.querySelector(".blog-featured");
-  if(!grid||!window.supabase||!window.MARROWVEIL_SUPABASE_URL||!window.MARROWVEIL_SUPABASE_PUBLISHABLE_KEY)return;
-  const client=window.supabase.createClient(window.MARROWVEIL_SUPABASE_URL,window.MARROWVEIL_SUPABASE_PUBLISHABLE_KEY);
-  const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-  const date=s=>s?new Date(s).toLocaleDateString(undefined,{year:"numeric",month:"long",day:"numeric"}):"";
-  function blockHtml(b){
-    const text=esc(b.text||"").replace(/\n/g,"<br>");
-    if(b.type==="heading")return (Number(b.level)===3?"<h3>":"<h2>")+text+(Number(b.level)===3?"</h3>":"</h2>");
-    if(b.type==="text")return "<p>"+text+"</p>";
-    if(b.type==="quote")return "<blockquote><p>"+text+"</p>"+(b.attribution?"<cite>"+esc(b.attribution)+"</cite>":"")+"</blockquote>";
-    if(b.type==="image"&&/^https?:\/\//i.test(b.url||""))return '<figure><img loading="lazy" src="'+esc(b.url)+'" alt="'+esc(b.alt||"")+'"><figcaption>'+esc(b.caption||"")+"</figcaption></figure>";
-    if(b.type==="video"){const m=String(b.url||"").match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([\w-]{11})/);return m?'<div class="blog-video"><iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/'+m[1]+'" title="'+esc(b.caption||"YouTube video")+'" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>':"";}
-    if(b.type==="link"&&/^https?:\/\//i.test(b.url||""))return '<p><a href="'+esc(b.url)+'" rel="noopener noreferrer">'+esc(b.label||"Read more")+"</a></p>";
-    return "";
+  const grid = document.querySelector(".blog-grid");
+  const count = document.querySelector(".blog-count");
+  if (!grid) return;
+
+  const esc = value => String(value ?? "").replace(/[&<>"']/g, char => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+  }[char]));
+  const date = value => value ? new Date(value).toLocaleDateString(undefined, {
+    year: "numeric", month: "long", day: "numeric"
+  }) : "";
+  const slugFromCard = card => {
+    const href = card.querySelector("a[href]")?.getAttribute("href") || "";
+    const match = href.match(/\/articles\/([a-z0-9-]+)\/?(?:[?#].*)?$/);
+    if (match) return match[1];
+    try { return new URL(href, location.href).searchParams.get("slug"); }
+    catch { return null; }
+  };
+  const categoryOf = card => (card.dataset.category ||
+    card.querySelector(".blog-tag")?.textContent || "").trim().toLowerCase();
+  const cards = () => [...grid.querySelectorAll(".blog-card")];
+
+  // Keep an accurate count without depending on any CMS response.
+  function updateCount() {
+    const total = cards().length;
+    if (count) count.innerHTML = "<span>" + total + "</span> " +
+      (total === 1 ? "Post" : "Posts");
   }
-  let staticSlugs=new Set();
-  const articleHref=slug=>staticSlugs.has(slug)?"/articles/"+encodeURIComponent(slug)+"/":"article.html?slug="+encodeURIComponent(slug);
-  function card(p){return '<article class="blog-card" data-category="'+esc(p.category)+'"><a class="blog-card-thumb" href="'+articleHref(p.slug)+'">'+(p.cover_image?'<img loading="lazy" src="'+esc(p.cover_image)+'" alt="'+esc(p.cover_alt||p.title+' cover art')+'">':'<div class="thumb-placeholder"><span class="thumb-symbol">◈</span></div>')+'</a><div class="blog-card-body"><div><span class="blog-tag">'+esc(p.category)+'</span></div><h2 class="blog-card-title"><a href="'+articleHref(p.slug)+'">'+esc(p.title)+'</a></h2><p class="blog-card-excerpt">'+esc(p.excerpt)+'</p><div class="blog-card-footer"><span class="blog-card-date">'+esc(date(p.published_at))+'</span><a class="blog-card-read" href="'+articleHref(p.slug)+'">Read ↗</a></div></div></article>';}
-  async function load(){
-    const {data,error}=await client.from("cms_posts").select("id,title,slug,excerpt,category,cover_image,cover_alt,published_at").eq("status","published").order("published_at",{ascending:false});
-    if(error){console.warn("Blog CMS unavailable; keeping the published static article fallback.",error);return;}
-    const posts=data||[];
-    if(!posts.length && grid.querySelector(".blog-card"))return;
-    count.innerHTML='<span>'+posts.length+'</span> '+(posts.length===1?"Post":"Posts");
-    const filters=document.querySelectorAll(".blog-filter-btn");
-    filters.forEach(btn=>btn.addEventListener("click",()=>{
-      filters.forEach(b=>b.classList.toggle("active",b===btn));
-      const category=btn.textContent.trim().toLowerCase();
-      grid.querySelectorAll(".blog-card").forEach(el=>el.hidden=category!=="all"&&el.dataset.category.toLowerCase()!==category);
-      if(featured)featured.hidden=category!=="all"&&featured.dataset.category?.toLowerCase()!==category;
-    }));
-    if(!posts.length){grid.innerHTML='<div class="empty-state"><h2>No articles published yet</h2><p>New development updates will appear here when they are ready.</p></div>';if(featured)featured.hidden=true;return;}
-    const first=posts[0];
-    if(featured){
-      featured.dataset.category=first.category;
-      featured.hidden=false;
-      featured.classList.add("revealed");
-      featured.innerHTML='<a class="blog-featured-thumb" href="'+articleHref(first.slug)+'">'+(first.cover_image?'<img src="'+esc(first.cover_image)+'" alt="'+esc(first.cover_alt||first.title+' cover art')+'" style="width:100%;height:100%;object-fit:cover">':'<div class="thumb-placeholder"><span class="thumb-symbol">◈</span></div>')+'</a><div class="blog-featured-body"><div><div class="blog-featured-tag" style="margin-bottom:1.25rem"><span class="blog-tag">'+esc(first.category)+'</span><span class="blog-featured-label">Latest</span></div><h2 class="blog-card-title"><a href="'+articleHref(first.slug)+'">'+esc(first.title)+'</a></h2><p class="blog-card-excerpt">'+esc(first.excerpt)+'</p></div><div class="blog-card-footer"><span class="blog-card-date">'+esc(date(first.published_at))+'</span><a class="blog-card-read" href="'+articleHref(first.slug)+'">Read article ↗</a></div></div>';
-    }
-    grid.innerHTML=posts.slice(1).map(card).join("");
-    if(!grid.querySelector(".blog-card")&&featured)count.innerHTML='<span>1</span> Post';
+
+  const filters = [...document.querySelectorAll(".blog-filter-btn")];
+  function applyFilter() {
+    const active = filters.find(button => button.classList.contains("active"));
+    const category = (active?.textContent || "All").trim().toLowerCase();
+    cards().forEach(card => {
+      card.hidden = category !== "all" && categoryOf(card) !== category;
+    });
   }
-  (async()=>{
+  filters.forEach(button => button.addEventListener("click", () => {
+    filters.forEach(other => other.classList.toggle("active", other === button));
+    applyFilter();
+  }));
+
+  const existing = new Set();
+  cards().forEach(card => {
+    card.dataset.category = categoryOf(card);
+    const slug = slugFromCard(card);
+    if (slug) existing.add(slug);
+  });
+  updateCount();
+  applyFilter();
+
+  if (!window.supabase || !window.MARROWVEIL_SUPABASE_URL ||
+      !window.MARROWVEIL_SUPABASE_PUBLISHABLE_KEY) return;
+
+  const client = window.supabase.createClient(
+    window.MARROWVEIL_SUPABASE_URL,
+    window.MARROWVEIL_SUPABASE_PUBLISHABLE_KEY
+  );
+  const articleHref = slug => "/article.html?slug=" + encodeURIComponent(slug);
+  function buildCard(post) {
+    const href = articleHref(post.slug);
+    return '<article class="blog-card" data-category="' + esc(post.category) + '">' +
+      '<a class="blog-card-thumb" href="' + href + '">' +
+      (post.cover_image
+        ? '<img loading="lazy" src="' + esc(post.cover_image) + '" alt="' +
+          esc(post.cover_alt || post.title + " cover art") + '">'
+        : '<div class="thumb-placeholder"><span class="thumb-symbol">◈</span></div>') +
+      '</a><div class="blog-card-body"><div><span class="blog-tag">' +
+      esc(post.category) + '</span></div><h2 class="blog-card-title"><a href="' +
+      href + '">' + esc(post.title) + '</a></h2><p class="blog-card-excerpt">' +
+      esc(post.excerpt) + '</p><div class="blog-card-footer"><span class="blog-card-date">' +
+      esc(date(post.published_at)) + '</span><a class="blog-card-read" href="' +
+      href + '">Read ↗</a></div></div></article>';
+  }
+
+  // Supabase supplies newly published posts. It must never erase the static listing.
+  async function enhance() {
     try {
-      const res=await fetch('/articles/manifest.json');
-      if(res.ok) staticSlugs=new Set(await res.json());
-    } catch (e) { /* CMS fallback links remain functional */ }
-    load();
-  })();
+      const { data, error } = await client.from("cms_posts")
+        .select("id,title,slug,excerpt,category,cover_image,cover_alt,published_at")
+        .eq("status", "published").order("published_at", { ascending: false });
+      if (error) throw error;
+      const additions = (data || []).filter(post =>
+        /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(post.slug) && !existing.has(post.slug)
+      );
+      if (additions.length) {
+        grid.insertAdjacentHTML("beforeend", additions.map(buildCard).join(""));
+        updateCount();
+        applyFilter();
+      }
+    } catch (error) {
+      console.warn("Blog live updates unavailable; published articles remain visible.", error);
+    }
+  }
+  enhance();
 })();
