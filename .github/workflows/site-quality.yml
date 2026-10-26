@@ -1,0 +1,24 @@
+name: Site quality
+on:
+  push:
+    branches: [main, 'optimize/**']
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check JavaScript syntax
+        run: |
+          node --check script.js
+          node --check article.js
+          node --check blog-cms.js
+          node --check scripts/export-blog.mjs
+      - name: Site metadata and path regression suite
+        run: node --test scripts/site-quality.test.mjs
