@@ -34,6 +34,8 @@ jobs:
       - name: Collect Lighthouse reports
         run: |
           npx --yes @lhci/cli@0.15.1 collect --config=.lighthouserc-${{ matrix.mode }}.json
+      - name: Inspect raw Lighthouse files
+        run: ls -la .lighthouseci/
       - name: Summarize measured results
         run: node scripts/summarize-lighthouse.mjs
       - uses: actions/upload-artifact@v4
@@ -42,3 +44,4 @@ jobs:
           name: lighthouse-${{ matrix.mode }}
           path: .lighthouseci/
           retention-days: 14
+          include-hidden-files: true

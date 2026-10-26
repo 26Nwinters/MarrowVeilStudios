@@ -1,5 +1,5 @@
 import {readdirSync,readFileSync,writeFileSync} from 'node:fs';
-const files=readdirSync('.lighthouseci').filter(x=>x.endsWith('.report.json'));
+const files=readdirSync('.lighthouseci').filter(x=>x.endsWith('.json')).filter(x=>{ try { return !!JSON.parse(readFileSync('.lighthouseci/'+x,'utf8')).categories?.performance; } catch { return false; } });
 if(!files.length)throw Error('No Lighthouse reports generated');
 const summary=files.map(f=>{
  const x=JSON.parse(readFileSync('.lighthouseci/'+f,'utf8'));
