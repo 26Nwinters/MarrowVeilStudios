@@ -17,6 +17,10 @@
   (async()=>{
     const slug=new URLSearchParams(location.search).get("slug");
     if(!slug||!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)){host.textContent="Article not found.";return;}
+    try {
+      const r=await fetch('/articles/manifest.json');
+      if(r.ok && (await r.json()).includes(slug)) { location.replace('/articles/'+encodeURIComponent(slug)+'/'); return; }
+    } catch (e) { /* Fall back to the dynamic article */ }
     const {data:p,error}=await client.from("cms_posts").select("title,slug,excerpt,category,cover_image,cover_alt,blocks,published_at,seo_title,seo_description").eq("slug",slug).eq("status","published").maybeSingle();
     if(error||!p){host.textContent="This article could not be found or is no longer published.";return;}
     document.title=(p.seo_title||p.title)+" | MarrowVeil Studios";
