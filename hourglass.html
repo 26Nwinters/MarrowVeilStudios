@@ -352,9 +352,75 @@
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"VideoGame","name":"HourGlass: Missing Time","url":"https://marrowveilstudios.com/hourglass","image":"https://marrowveilstudios.com/assets/games/hourglass-banner.png","description":"A psychological horror mystery following Boa Vandyke as she searches an abandoned Meka Corporation entertainment center for her missing sister.","genre":["Psychological Horror","Mystery","Narrative Adventure"],"gamePlatform":"PC (Windows)","author":{"@type":"Organization","name":"MarrowVeil Studios","url":"https://marrowveilstudios.com/"},"inLanguage":"en-US"}
 </script>
+<link rel="preload" as="image" href="/assets/games/hourglass-banner.png" fetchpriority="high">
 </head>
 <body>
-  <div id="nav-placeholder"></div>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+<nav id="nav">
+  <div class="container">
+    <div class="nav-inner">
+
+      <a class="nav-logo" href="index.html" style="flex-direction:row;align-items:center;gap:0.6rem;text-decoration:none;">
+        <img src="assets/logo/logo_extracted_2.png" alt="MarrowVeil Studios" style="height:2.2rem;width:auto;filter:drop-shadow(0 0 6px rgba(255,255,255,0.35));" />
+      </a>
+
+      <div class="nav-links">
+        <a class="nav-link" href="index.html">Home</a>
+
+        <!-- Games dropdown -->
+        <div class="nav-dropdown" id="gamesDropdown">
+          <button class="nav-link nav-dropdown-trigger" aria-expanded="false" aria-haspopup="true" aria-controls="games-menu">
+            Games
+            <svg class="nav-dropdown-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+            </svg>
+          </button>
+          <div class="nav-dropdown-menu" id="games-menu">
+            <a class="nav-dropdown-item" href="games.html">All Games</a>
+            <a class="nav-dropdown-item" href="hourglass.html">HourGlass</a>
+            <a class="nav-dropdown-item" href="mekaiarchives.html">Mek-Ai Archives</a>
+          </div>
+        </div>
+        <a class="nav-link" href="about.html">About Us</a>
+        <a class="nav-link" href="blog.html">Blog</a>
+        <a class="nav-link" href="press.html">Press</a>
+        <a class="btn-gold" style="padding:.5rem 1.25rem;font-size:.75rem;" href="contact.html">Contact</a>
+      </div>
+
+      <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu" aria-controls="mobile-menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div class="nav-mobile" id="mobile-menu">
+    <div class="nav-mobile-inner">
+      <a class="nav-link" href="index.html" onclick="closeMobile()">Home</a>
+
+      <!-- Mobile games accordion -->
+      <div class="nav-mobile-group">
+        <button class="nav-link nav-mobile-group-trigger" aria-expanded="false">
+          Games
+          <svg class="nav-dropdown-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <div class="nav-mobile-group-items" id="mobile-games-menu">
+          <a class="nav-link nav-mobile-sub" href="games.html" onclick="closeMobile()">All Games</a>
+          <a class="nav-link nav-mobile-sub" href="hourglass.html" onclick="closeMobile()">HourGlass</a>
+          <a class="nav-link nav-mobile-sub" href="mekaiarchives.html" onclick="closeMobile()">Mek-Ai Archives</a>
+        </div>
+      </div>
+      <a class="nav-link" href="about.html" onclick="closeMobile()">About Us</a>
+      <a class="nav-link" href="blog.html" onclick="closeMobile()">Blog</a>
+      <a class="nav-link" href="press.html" onclick="closeMobile()">Press</a>
+      <a class="btn-gold" style="margin-top:.5rem;" href="contact.html" onclick="closeMobile()">Contact</a>
+    </div>
+  </div>
+</nav>
+<main id="main-content" tabindex="-1">
 
   <!-- HERO -->
   <section class="hg-hero">
@@ -394,7 +460,7 @@
         </div>
         <div>
           <div class="hg-img-wrap">
-          <img src="assets/HG/First_F_HG.png" alt="Abandoned Meka Corporation entertainment center in HourGlass: Missing Time" style="width:100%;height:100%;object-fit:cover;">
+          <img loading="lazy" decoding="async" src="assets/HG/First_F_HG.png" alt="Abandoned Meka Corporation entertainment center in HourGlass: Missing Time" style="width:100%;height:100%;object-fit:cover;">
           </div>
         </div>
       </div>
@@ -414,7 +480,7 @@
         </div>
         <div style="direction:ltr;">
           <div class="hg-img-wrap">
-          <img src="assets/HG/Second_F_HG.png" alt="Post thumbnail" style="width:100%;height:100%;object-fit:cover;">
+          <img loading="lazy" decoding="async" src="assets/HG/Second_F_HG.png" alt="HourGlass: Missing Time preview image 1 of 7" style="width:100%;height:100%;object-fit:cover;">
 
           </div>
         </div>
@@ -468,14 +534,14 @@
         <div class="rule-gold"></div>
       </div>
       <div class="hg-screenshots reveal">
-        <img src="assets/HG/Screenshot_HG_1.png" alt="Post thumbnail" style="width:100%;height:100%;object-fit:cover;">
-        <img src="assets/HG/Screenshot_HG_2.png" alt="Post thumbnail" style="width:100%;height:100%;object-fit:cover;">
-        <img src="assets/HG/Screenshot_HG_3.png" alt="Post thumbnail" style="width:100%;height:100%;object-fit:cover;">
-        <img src="assets/HG/Screenshot_HG_4.png" alt="Post thumbnail" style="width:100%;height:100%;object-fit:cover;">
-        <img src="assets/HG/Screenshot_HG_5.png" alt="Post thumbnail" style="width:100%;height:100%;object-fit:cover;">
-        <img src="assets/HG/Screenshot_HG_6.png" alt="Post thumbnail" style="width:100%;height:100%;object-fit:cover;">
+        <img loading="lazy" decoding="async" src="assets/HG/Screenshot_HG_1.png" alt="HourGlass: Missing Time preview image 2 of 7" style="width:100%;height:100%;object-fit:cover;">
+        <img loading="lazy" decoding="async" src="assets/HG/Screenshot_HG_2.png" alt="HourGlass: Missing Time preview image 3 of 7" style="width:100%;height:100%;object-fit:cover;">
+        <img loading="lazy" decoding="async" src="assets/HG/Screenshot_HG_3.png" alt="HourGlass: Missing Time preview image 4 of 7" style="width:100%;height:100%;object-fit:cover;">
+        <img loading="lazy" decoding="async" src="assets/HG/Screenshot_HG_4.png" alt="HourGlass: Missing Time preview image 5 of 7" style="width:100%;height:100%;object-fit:cover;">
+        <img loading="lazy" decoding="async" src="assets/HG/Screenshot_HG_5.png" alt="HourGlass: Missing Time preview image 6 of 7" style="width:100%;height:100%;object-fit:cover;">
+        <img loading="lazy" decoding="async" src="assets/HG/Screenshot_HG_6.png" alt="HourGlass: Missing Time preview image 7 of 7" style="width:100%;height:100%;object-fit:cover;">
       </div>
-      <p style="font-family:var(--font-body);font-size:0.75rem;color:var(--dim);margin-top:1rem;letter-spacing:0.1em;">Screenshots will be added as development progresses.</p>
+      <p style="font-family:var(--font-body);font-size:0.75rem;color:var(--dim);margin-top:1rem;letter-spacing:0.1em;">Development visuals are subject to change.</p>
     </section>
 
     <!-- DEVELOPMENT INFO -->
@@ -487,7 +553,7 @@
       <div class="games-stats reveal">
         <div class="games-stat">
           <div class="games-stat-label">Status</div>
-          <div class="games-stat-value">In Development</div>
+          <div class="games-stat-value">Temporarily Paused</div>
         </div>
         <div class="games-stat">
           <div class="games-stat-label">Platform</div>
@@ -506,17 +572,40 @@
 
     <!-- CTA -->
     <div class="hg-cta-band reveal">
-      <p class="hg-cta-band-eyebrow">Coming to Steam</p>
+      <p class="hg-cta-band-eyebrow">Follow Development</p>
       <h2 class="hg-cta-band-title">Don't go in alone.</h2>
       <div class="hg-cta-band-btns">
-        <a href="#" class="btn-gold">Wishlist on Steam</a>
+        <a href="/blog" class="btn-gold">Development Updates</a>
         <a href="/games" class="btn-ghost">All Games</a>
       </div>
     </div>
 
   </div>
 
-  <div id="footer-placeholder"></div>
+  </main>
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div style="display:flex;flex-direction:row;align-items:center;gap:0.6rem;">
+         <img src="assets/logo/logo_extracted_2.png" alt="MarrowVeil Studios" style="height:2rem;width:auto;filter:drop-shadow(0 0 5px rgba(255,255,255,0.25));" />
+        <div style="display:flex;flex-direction:column;gap:.15rem;">
+          <span class="footer-logo-main">MARROWVEIL</span>
+          <span class="footer-logo-sub">STUDIOS</span>
+        </div>
+      </div>
+      <div class="footer-links">
+        <a class="footer-link" href="index.html">Home</a>
+        <a class="footer-link" href="games.html">Games</a>
+        <a class="footer-link" href="about.html">About</a>
+        <a class="footer-link" href="press.html">Press</a>
+        <a class="footer-link" href="contact.html">Contact</a>
+        <a class="footer-link" href="privacy.html">Privacy</a>
+      </div>
+      <span class="footer-copy">© 2026 MarrowVeil Studios. All rights reserved.</span>
+    </div>
+    <p class="footer-tagline">Where Stories Take Root</p>
+  </div>
+</footer>
   <script src="script.js"></script>
   <script>
     /* Slow zoom on load */

@@ -11,16 +11,16 @@
 
         <!-- Games dropdown -->
         <div class="nav-dropdown" id="gamesDropdown">
-          <button class="nav-link nav-dropdown-trigger" aria-expanded="false" aria-haspopup="true">
+          <button class="nav-link nav-dropdown-trigger" aria-expanded="false" aria-haspopup="true" aria-controls="games-menu">
             Games
             <svg class="nav-dropdown-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
             </svg>
           </button>
-          <div class="nav-dropdown-menu" role="menu">
-            <a class="nav-dropdown-item" href="games.html" role="menuitem">All Games</a>
-            <a class="nav-dropdown-item" href="hourglass.html" role="menuitem">HourGlass</a>
-            <a class="nav-dropdown-item" href="mekaiarchives.html" role="menuitem">Mek-Ai Archives</a>
+          <div class="nav-dropdown-menu" id="games-menu">
+            <a class="nav-dropdown-item" href="games.html">All Games</a>
+            <a class="nav-dropdown-item" href="hourglass.html">HourGlass</a>
+            <a class="nav-dropdown-item" href="mekaiarchives.html">Mek-Ai Archives</a>
           </div>
         </div>
         <a class="nav-link" href="about.html">About Us</a>
@@ -29,7 +29,7 @@
         <a class="btn-gold" style="padding:.5rem 1.25rem;font-size:.75rem;" href="contact.html">Contact</a>
       </div>
 
-      <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu">
+      <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu" aria-controls="mobile-menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
 
@@ -49,7 +49,7 @@
             <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
           </svg>
         </button>
-        <div class="nav-mobile-group-items">
+        <div class="nav-mobile-group-items" id="mobile-games-menu">
           <a class="nav-link nav-mobile-sub" href="games.html" onclick="closeMobile()">All Games</a>
           <a class="nav-link nav-mobile-sub" href="hourglass.html" onclick="closeMobile()">HourGlass</a>
           <a class="nav-link nav-mobile-sub" href="mekaiarchives.html" onclick="closeMobile()">Mek-Ai Archives</a>
@@ -62,7 +62,6 @@
     </div>
   </div>
 </nav>
-
 <style>
   .nav-dropdown { position: relative; }
 
