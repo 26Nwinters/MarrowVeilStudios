@@ -7,6 +7,10 @@ function closeMobile() {
     hamburger.setAttribute('aria-expanded', 'false');
   }
   if (mobileMenu) mobileMenu.classList.remove('open');
+  document.querySelectorAll('.nav-mobile-group').forEach(group => {
+    group.classList.remove('open');
+    group.querySelector('button')?.setAttribute('aria-expanded','false');
+  });
 }
 
 function initNav() {
@@ -40,6 +44,13 @@ function initNav() {
       dropdown.classList.toggle('open', open);
       trigger.setAttribute('aria-expanded', String(open));
     });
+    dropdown.addEventListener('keydown', event => {
+      if (event.key === 'Escape') {
+        dropdown.classList.remove('open');
+        trigger?.setAttribute('aria-expanded', 'false');
+        trigger?.focus();
+      }
+    });
     document.addEventListener('click', event => {
       if (!dropdown.contains(event.target)) {
         dropdown.classList.remove('open');
@@ -47,6 +58,14 @@ function initNav() {
       }
     });
   }
+  document.addEventListener('keydown', event => {
+    if (event.key !== 'Escape') return;
+    closeMobile();
+    document.querySelectorAll('.nav-dropdown').forEach(item => {
+      item.classList.remove('open');
+      item.querySelector('button')?.setAttribute('aria-expanded','false');
+    });
+  });
   document.querySelectorAll('.nav-mobile-group-trigger').forEach(button => {
     if (button.dataset.initialized) return;
     button.dataset.initialized = 'true';
@@ -58,11 +77,12 @@ function initNav() {
       button.setAttribute('aria-expanded', String(open));
     });
   });
-  const path = window.location.pathname.split('/').pop() || 'index.html';
+  const pieces = window.location.pathname.split('/').filter(Boolean);
+  const last = pieces.at(-1) || 'index';
+  const path = (last === 'index.html' ? 'index' : last.replace(/\.html$/, ''));
   document.querySelectorAll('.nav-link').forEach(link => {
     const href = link.getAttribute('href') || '';
-    if (href && href.endsWith('.html') && path === href) link.classList.add('active');
-    if ((path === 'index.html' || path === '') && href === 'index.html') link.classList.add('active');
+    if (href && href.replace(/\.html$/, '') === path) link.classList.add('active');
   });
 }
 
@@ -113,6 +133,7 @@ async function loadIncludes() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  initNav();
   initReveals();
   initHeroParallax();
   loadIncludes();

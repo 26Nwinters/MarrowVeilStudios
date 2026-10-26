@@ -1,0 +1,47 @@
+name: Browser audit (Lighthouse)
+on:
+  pull_request:
+  push:
+    branches: ['optimize/**']
+    paths:
+      - '.github/workflows/browser-audit.yml'
+      - '.lighthouserc-mobile.json'
+      - '.lighthouserc-desktop.json'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        mode: [mobile, desktop]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Start local static preview
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/marrowveil-server.log 2>&1 &
+          for i in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:8765/ >/dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/marrowveil-server.log
+          exit 1
+      - name: Collect Lighthouse reports
+        run: |
+          npx --yes @lhci/cli@0.15.1 collect --config=.lighthouserc-${{ matrix.mode }}.json
+      - name: Inspect raw Lighthouse files
+        run: ls -la .lighthouseci/
+      - name: Summarize measured results
+        run: node scripts/summarize-lighthouse.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lighthouse-${{ matrix.mode }}
+          path: .lighthouseci/
+          retention-days: 14
+          include-hidden-files: true

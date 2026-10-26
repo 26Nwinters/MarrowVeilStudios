@@ -6,7 +6,7 @@
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#080810" />
   <meta property="og:type" content="website">
-  <meta property="og:image" content="https://marrowveilstudios.com/hero-forest.jpg">
+  <meta property="og:image" content="https://marrowveilstudios.com/assets/home/Featured_Image_01.png">
   <link rel="icon" type="image/png" href="favicon_blogo.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -22,10 +22,75 @@
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Contact the Studio | MarrowVeil Studios" />
 <meta name="twitter:description" content="Contact MarrowVeil Studios about press inquiries, collaborations, project questions, or other studio-related matters." />
-<meta name="twitter:image" content="https://marrowveilstudios.com/hero-forest.jpg" />
+<meta name="twitter:image" content="https://marrowveilstudios.com/assets/home/Featured_Image_01.png" />
 </head>
 <body>
-  <div id="nav-placeholder"></div>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+<nav id="nav">
+  <div class="container">
+    <div class="nav-inner">
+
+      <a class="nav-logo" href="index.html" style="flex-direction:row;align-items:center;gap:0.6rem;text-decoration:none;">
+        <img src="assets/logo/logo_extracted_2.png" alt="MarrowVeil Studios" style="height:2.2rem;width:auto;filter:drop-shadow(0 0 6px rgba(255,255,255,0.35));" />
+      </a>
+
+      <div class="nav-links">
+        <a class="nav-link" href="index.html">Home</a>
+
+        <!-- Games dropdown -->
+        <div class="nav-dropdown" id="gamesDropdown">
+          <button class="nav-link nav-dropdown-trigger" aria-expanded="false" aria-haspopup="true" aria-controls="games-menu">
+            Games
+            <svg class="nav-dropdown-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+            </svg>
+          </button>
+          <div class="nav-dropdown-menu" id="games-menu">
+            <a class="nav-dropdown-item" href="games.html">All Games</a>
+            <a class="nav-dropdown-item" href="hourglass.html">HourGlass</a>
+            <a class="nav-dropdown-item" href="mekaiarchives.html">Mek-Ai Archives</a>
+          </div>
+        </div>
+        <a class="nav-link" href="about.html">About Us</a>
+        <a class="nav-link" href="blog.html">Blog</a>
+        <a class="nav-link" href="press.html">Press</a>
+        <a class="btn-gold" style="padding:.5rem 1.25rem;font-size:.75rem;" href="contact.html">Contact</a>
+      </div>
+
+      <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu" aria-controls="mobile-menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div class="nav-mobile" id="mobile-menu">
+    <div class="nav-mobile-inner">
+      <a class="nav-link" href="index.html" onclick="closeMobile()">Home</a>
+
+      <!-- Mobile games accordion -->
+      <div class="nav-mobile-group">
+        <button class="nav-link nav-mobile-group-trigger" aria-expanded="false">
+          Games
+          <svg class="nav-dropdown-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <div class="nav-mobile-group-items" id="mobile-games-menu">
+          <a class="nav-link nav-mobile-sub" href="games.html" onclick="closeMobile()">All Games</a>
+          <a class="nav-link nav-mobile-sub" href="hourglass.html" onclick="closeMobile()">HourGlass</a>
+          <a class="nav-link nav-mobile-sub" href="mekaiarchives.html" onclick="closeMobile()">Mek-Ai Archives</a>
+        </div>
+      </div>
+      <a class="nav-link" href="about.html" onclick="closeMobile()">About Us</a>
+      <a class="nav-link" href="blog.html" onclick="closeMobile()">Blog</a>
+      <a class="nav-link" href="press.html" onclick="closeMobile()">Press</a>
+      <a class="btn-gold" style="margin-top:.5rem;" href="contact.html" onclick="closeMobile()">Contact</a>
+    </div>
+  </div>
+</nav>
+<main id="main-content" tabindex="-1">
 
   <div class="page-hero">
     <div class="container">
@@ -94,7 +159,30 @@
   </div>
 
 
-  <div id="footer-placeholder"></div>
+  </main>
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div style="display:flex;flex-direction:row;align-items:center;gap:0.6rem;">
+         <img src="assets/logo/logo_extracted_2.png" alt="MarrowVeil Studios" style="height:2rem;width:auto;filter:drop-shadow(0 0 5px rgba(255,255,255,0.25));" />
+        <div style="display:flex;flex-direction:column;gap:.15rem;">
+          <span class="footer-logo-main">MARROWVEIL</span>
+          <span class="footer-logo-sub">STUDIOS</span>
+        </div>
+      </div>
+      <div class="footer-links">
+        <a class="footer-link" href="index.html">Home</a>
+        <a class="footer-link" href="games.html">Games</a>
+        <a class="footer-link" href="about.html">About</a>
+        <a class="footer-link" href="press.html">Press</a>
+        <a class="footer-link" href="contact.html">Contact</a>
+        <a class="footer-link" href="privacy.html">Privacy</a>
+      </div>
+      <span class="footer-copy">© 2026 MarrowVeil Studios. All rights reserved.</span>
+    </div>
+    <p class="footer-tagline">Where Stories Take Root</p>
+  </div>
+</footer>
   <script src="script.js"></script>
 </body>
 </html>
