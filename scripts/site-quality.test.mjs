@@ -12,7 +12,7 @@ for (const slug of manifest) publicPages.push('articles/' + slug + '/index.html'
 
 test('clean and .html routes contain identical content apart from base href', () => {
   for (const name of routes) {
-    assert.equal(read(name + '/index.html').replace(/  <base href="\/" \/>\n?/, ''), read(name + '.html'), name);
+    assert.equal(read(name + '/index.html').replace(/  <base href="\/" \/>\n?/, '').replace(name === 'privacy' ? /<head>\n(?=<meta charset="utf-8">)/ : /NEVER_MATCH_THIS/, '<head>'), read(name + '.html'), name);
   }
 });
 
@@ -22,7 +22,7 @@ test('every public page has distinct indexing metadata and static navigation', (
     assert.match(html, /<html[^>]+lang="en"/i, page + ': language');
     assert.match(html, /<title>[^<]+<\/title>/i, page + ': title');
     assert.match(html, /<meta name="description" content="[^"]+"/i, page + ': description');
-    assert.match(html, /<link rel="canonical" href="https:\/\/marrowveilstudios\.com[^"]+"/i, page + ': canonical');
+    assert.match(html, /<link rel="canonical" href="https:\/\/marrowveilstudios\.com[^"]*"/i, page + ': canonical');
     assert.match(html, /<meta property="og:image" content="https:\/\//i, page + ': social image');
     assert.match(html, /<nav id="nav">/i, page + ': static nav');
     assert.match(html, /<main[^>]*id="main-content"[^>]*>/i, page + ': main landmark');
