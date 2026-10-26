@@ -16,11 +16,13 @@
   }
   let staticSlugs=new Set();
   const articleHref=slug=>staticSlugs.has(slug)?"/articles/"+encodeURIComponent(slug)+"/":"article.html?slug="+encodeURIComponent(slug);
-  function card(p){return '<article class="blog-card reveal" data-category="'+esc(p.category)+'"><a class="blog-card-thumb" href="'+articleHref(p.slug)+'">'+(p.cover_image?'<img loading="lazy" src="'+esc(p.cover_image)+'" alt="'+esc(p.cover_alt||p.title+' cover art')+'">':'<div class="thumb-placeholder"><span class="thumb-symbol">◈</span></div>')+'</a><div class="blog-card-body"><div><span class="blog-tag">'+esc(p.category)+'</span></div><h2 class="blog-card-title"><a href="'+articleHref(p.slug)+'">'+esc(p.title)+'</a></h2><p class="blog-card-excerpt">'+esc(p.excerpt)+'</p><div class="blog-card-footer"><span class="blog-card-date">'+esc(date(p.published_at))+'</span><a class="blog-card-read" href="'+articleHref(p.slug)+'">Read ↗</a></div></div></article>';}
+  function card(p){return '<article class="blog-card" data-category="'+esc(p.category)+'"><a class="blog-card-thumb" href="'+articleHref(p.slug)+'">'+(p.cover_image?'<img loading="lazy" src="'+esc(p.cover_image)+'" alt="'+esc(p.cover_alt||p.title+' cover art')+'">':'<div class="thumb-placeholder"><span class="thumb-symbol">◈</span></div>')+'</a><div class="blog-card-body"><div><span class="blog-tag">'+esc(p.category)+'</span></div><h2 class="blog-card-title"><a href="'+articleHref(p.slug)+'">'+esc(p.title)+'</a></h2><p class="blog-card-excerpt">'+esc(p.excerpt)+'</p><div class="blog-card-footer"><span class="blog-card-date">'+esc(date(p.published_at))+'</span><a class="blog-card-read" href="'+articleHref(p.slug)+'">Read ↗</a></div></div></article>';}
   async function load(){
     const {data,error}=await client.from("cms_posts").select("id,title,slug,excerpt,category,cover_image,cover_alt,published_at").eq("status","published").order("published_at",{ascending:false});
     if(error){console.warn("Blog CMS unavailable; keeping the published static article fallback.",error);return;}
-    const posts=data||[];count.innerHTML='<span>'+posts.length+'</span> '+(posts.length===1?"Post":"Posts");
+    const posts=data||[];
+    if(!posts.length && grid.querySelector(".blog-card"))return;
+    count.innerHTML='<span>'+posts.length+'</span> '+(posts.length===1?"Post":"Posts");
     const filters=document.querySelectorAll(".blog-filter-btn");
     filters.forEach(btn=>btn.addEventListener("click",()=>{
       filters.forEach(b=>b.classList.toggle("active",b===btn));
@@ -28,11 +30,11 @@
       grid.querySelectorAll(".blog-card").forEach(el=>el.hidden=category!=="all"&&el.dataset.category.toLowerCase()!==category);
       if(featured)featured.hidden=category!=="all"&&featured.dataset.category?.toLowerCase()!==category;
     }));
-    if(!posts.length && grid.querySelector(".blog-card")){return;}
     if(!posts.length){grid.innerHTML='<div class="empty-state"><h2>No articles published yet</h2><p>New development updates will appear here when they are ready.</p></div>';if(featured)featured.hidden=true;return;}
     const first=posts[0];
     if(featured){
       featured.dataset.category=first.category;
+      featured.hidden=false;
       featured.innerHTML='<a class="blog-featured-thumb" href="'+articleHref(first.slug)+'">'+(first.cover_image?'<img src="'+esc(first.cover_image)+'" alt="'+esc(first.cover_alt||first.title+' cover art')+'" style="width:100%;height:100%;object-fit:cover">':'<div class="thumb-placeholder"><span class="thumb-symbol">◈</span></div>')+'</a><div class="blog-featured-body"><div><div class="blog-featured-tag" style="margin-bottom:1.25rem"><span class="blog-tag">'+esc(first.category)+'</span><span class="blog-featured-label">Latest</span></div><h2 class="blog-card-title"><a href="'+articleHref(first.slug)+'">'+esc(first.title)+'</a></h2><p class="blog-card-excerpt">'+esc(first.excerpt)+'</p></div><div class="blog-card-footer"><span class="blog-card-date">'+esc(date(first.published_at))+'</span><a class="blog-card-read" href="'+articleHref(first.slug)+'">Read article ↗</a></div></div>';
     }
     grid.innerHTML=posts.slice(1).map(card).join("");
