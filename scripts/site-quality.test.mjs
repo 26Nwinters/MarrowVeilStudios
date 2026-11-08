@@ -4,7 +4,7 @@ import { readFileSync, existsSync } from 'node:fs';
 import path from 'node:path';
 
 const read = p => readFileSync(p, 'utf8');
-const routes = ['about', 'blog', 'contact', 'games', 'hourglass', 'mekaiarchives', 'press', 'privacy', 'shop'];
+const routes = ['about', 'blog', 'contact', 'games', 'hourglass', 'mekaiarchives', 'press', 'privacy'];
 const publicPages = ['index.html', 'article.html', ...routes.map(r => r + '.html'), ...routes.map(r => r + '/index.html')];
 const canonical = r => 'https://marrowveilstudios.com/' + (r === 'index' ? '' : r);
 const manifest = JSON.parse(read('articles/manifest.json'));
